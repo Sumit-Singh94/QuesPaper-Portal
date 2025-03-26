@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, useRef } from "react";
+import "./App.css";
+import Courses from "./Courses";
+import Dbservice from "./Appwrite_Config/Appwrite_Databases";
+import { ID } from "appwrite";
+import { Loader } from "./Components/index";
 
 function App() {
-  const [count, setCount] = useState(0)
+ const [uploaded, setuploaded] = useState(false);
+ const [loading, setLoading] = useState(true);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+ let IsMounted = useRef(true);
+
+ useEffect(() => {
+  const handleUpload = async () => {
+   if (!uploaded && IsMounted.current) {
+    try {
+     await Dbservice.uploadCourses(Courses);
+     setuploaded(true);
+     setLoading(false);
+     console.log("Course Uploaded Successfully!");
+    } catch (error) {
+     console.log("Course Not Uploaded");
+    }
+   }
+  };
+  handleUpload();
+
+  return () => {
+   IsMounted.current = false;
+  };
+  
+ }, [uploaded]);
+
+ return (
+  <>
+   <p></p>
+
+   <div>
+    {loading ? (
+     <Loader />
+    ) : (
+     <div>
+      {Courses.map((course) => (
+       <ul key={ID.unique()}>{course.coursename}</ul>
+      ))}
+     </div>
+    )}
+   </div>
+  </>
+ );
 }
 
-export default App
+export default App;
