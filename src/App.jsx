@@ -8,10 +8,24 @@ import { Loader } from "./Components/index";
 function App() {
  const [uploaded, setuploaded] = useState(false);
  const [loading, setLoading] = useState(true);
+ const [listDocs, setlistDocs] = useState([]);
 
  let IsMounted = useRef(true);
 
  useEffect(() => {
+
+  const fetchCourses = async () => {
+   try {
+  const fetchedData=await Dbservice.getCourses()
+  setlistDocs(fetchedData.documents)
+  
+   } 
+   catch (error) {
+    console.log("Error::getcourses::error",error);
+   }
+  };
+  fetchCourses()
+
   const handleUpload = async () => {
    if (!uploaded && IsMounted.current) {
     try {
@@ -29,7 +43,6 @@ function App() {
   return () => {
    IsMounted.current = false;
   };
-  
  }, [uploaded]);
 
  return (
@@ -37,13 +50,19 @@ function App() {
    <p></p>
 
    <div>
+
     {loading ? (
      <Loader />
     ) : (
      <div>
-      {Courses.map((course) => (
-       <ul key={ID.unique()}>{course.coursename}</ul>
-      ))}
+      <h1>Text Here</h1>
+           {listDocs.map((val)=>(
+            <ul key={val.$id}>
+          {val.coursename}
+            </ul>
+         
+           ))}
+      
      </div>
     )}
    </div>

@@ -34,6 +34,27 @@ export class Service {
             throw error;
         }
     }
+
+    async getCourses(){
+        try {
+
+            const docs= await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCoursesCollectionId,
+            )
+            return docs;
+            
+        } 
+        catch (error) {
+            console.log("Error::getcourses::error",error);
+            
+        }
+       
+    }
+
+
+
+
 }
 
 const Dbservice = new Service();
