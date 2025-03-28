@@ -9,15 +9,18 @@ function App() {
  const [uploaded, setuploaded] = useState(false);
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
+ const [coursecode,setCourseCode]=useState([])
 
  let IsMounted = useRef(true);
-
+                                                                                        
  useEffect(() => {
-
+  
   const fetchCourses = async () => {
    try {
   const fetchedData=await Dbservice.getCourses()
   setlistDocs(fetchedData.documents)
+  const codes=fetchedData.documents.map((val)=>(val.coursecode))
+  setCourseCode([...new Set(codes)])
   
    } 
    catch (error) {
@@ -26,8 +29,11 @@ function App() {
   };
   fetchCourses()
 
+  
+  
+  
   const handleUpload = async () => {
-   if (!uploaded && IsMounted.current) {
+   if (!uploaded && IsMounted.current ) {
     try {
      await Dbservice.uploadCourses(Courses);
      setuploaded(true);
