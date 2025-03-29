@@ -22,15 +22,15 @@ function App() {
   const codes=fetchedData.documents.map((val)=>(val.coursecode))
   setCourseCode([...new Set(codes)])
   
-   } 
+  } 
    catch (error) {
     console.log("Error::getcourses::error",error);
    }
   };
   fetchCourses()
 
-  
-  
+
+
   
   const handleUpload = async () => {
    if (!uploaded && IsMounted.current ) {
