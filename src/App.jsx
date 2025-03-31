@@ -19,9 +19,9 @@ function App() {
    try {
   const fetchedData=await Dbservice.getCourses()
   setlistDocs(fetchedData.documents)
+
   const codes=fetchedData.documents.map((val)=>(val.coursecode))
   setCourseCode([...new Set(codes)])
-  
   } 
    catch (error) {
     console.log("Error::getcourses::error",error);
@@ -33,8 +33,10 @@ function App() {
 
   
   const handleUpload = async () => {
+
    if (!uploaded && IsMounted.current ) {
     try {
+     Courses.filter(coursecode)
      await Dbservice.uploadCourses(Courses);
      setuploaded(true);
      setLoading(false);
@@ -49,7 +51,11 @@ function App() {
   return () => {
    IsMounted.current = false;
   };
- }, [uploaded]);
+ }
+ 
+ 
+ 
+ , [uploaded]);
 
  return (
   <>
