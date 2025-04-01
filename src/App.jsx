@@ -14,7 +14,7 @@ function App() {
  let IsMounted = useRef(true);
                                                                                         
  useEffect(() => {
-  
+   
   const fetchCourses = async () => {
    try {
   const fetchedData=await Dbservice.getCourses()
@@ -36,7 +36,7 @@ function App() {
 
    if (!uploaded && IsMounted.current ) {
     try {
-     Courses.filter(coursecode)
+    
      await Dbservice.uploadCourses(Courses);
      setuploaded(true);
      setLoading(false);
