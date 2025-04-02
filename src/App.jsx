@@ -29,13 +29,16 @@ function App() {
   };
   fetchCourses()
 
-
-
   
   const handleUpload = async () => {
 
    if (!uploaded && IsMounted.current ) {
     try {
+
+   const localcodes=Courses.map((val)=>(val.coursecode))
+
+   
+
     
      await Dbservice.uploadCourses(Courses);
      setuploaded(true);
