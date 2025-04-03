@@ -37,7 +37,7 @@ function App() {
 
    const localcodes=Courses.map((val)=>(val.coursecode))
 
-   
+     Courses.filter(()=>(localcodes))
 
     
      await Dbservice.uploadCourses(Courses);
