@@ -9,7 +9,7 @@ function App() {
  const [uploaded, setuploaded] = useState(false);
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
- const [coursecode,setCourseCode]=useState([])
+ const [Dbcoursecode,setDbCourseCode]=useState([])
 
  let IsMounted = useRef(true);
                                                                                         
@@ -21,44 +21,54 @@ function App() {
   setlistDocs(fetchedData.documents)
 
   const codes=fetchedData.documents.map((val)=>(val.coursecode))
-  setCourseCode([...new Set(codes)])
+  setDbCourseCode([...new Set(codes)])
   } 
    catch (error) {
-    console.log("Error::getcourses::error",error);
+    console.log("Error::getDbcourses::error",error);
    }
   };
+
   fetchCourses()
 
   
   const handleUpload = async () => {
 
    if (!uploaded && IsMounted.current ) {
+
     try {
 
-   const localcodes=Courses.map((val)=>(val.coursecode))
-
-     Courses.filter(()=>(localcodes))
-
+   const localCourseCodes=Courses.map((val)=>(val.coursecode))
+ 
+    const newLocalCodes= localCourseCodes.filter((code)=>(
+       !Dbcoursecode.includes(code)
+    ))
     
-     await Dbservice.uploadCourses(Courses);
-     setuploaded(true);
-     setLoading(false);
-     console.log("Course Uploaded Successfully!");
+    const coursesToUpload=Courses.filter((courses)=>(
+      newLocalCodes.includes(courses.coursecode)
+    ))
+
+      if (coursesToUpload.length > 0) {
+        try {
+          await Dbservice.uploadCourses(coursesToUpload);
+          setuploaded(true);
+          setLoading(false);
+          console.log("Course Uploaded Successfully!");
+        } catch (error) {
+          console.log("Course Not Uploaded");
+        }
+      }
+      
     } catch (error) {
-     console.log("Course Not Uploaded");
+      console.log("Error in handleUpload:", error);
     }
-   }
   };
   handleUpload();
+  };
 
   return () => {
    IsMounted.current = false;
   };
- }
- 
- 
- 
- , [uploaded]);
+ }, [uploaded]);
 
  return (
   <>
