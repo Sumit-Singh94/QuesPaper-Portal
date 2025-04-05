@@ -28,7 +28,7 @@ function App() {
    }
   };
 
-  fetchCourses()
+console.log("loading!!");
 
   
   const handleUpload = async () => {
@@ -62,13 +62,14 @@ function App() {
       console.log("Error in handleUpload:", error);
     }
   };
+  fetchCourses()
   handleUpload();
   };
 
   return () => {
    IsMounted.current = false;
   };
- }, [uploaded]);
+ }, );
 
  return (
   <>
@@ -77,7 +78,8 @@ function App() {
    <div>
 
     {loading ? (
-     <Loader />
+      <Loader /> 
+    
     ) : (
      <div>
       <h1>Text Here</h1>
