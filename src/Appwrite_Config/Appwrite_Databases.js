@@ -20,7 +20,7 @@ export class Service {
                 const result = await this.databases.createDocument(
                     conf.appwriteDatabaseId,
                     conf.appwriteCoursesCollectionId,
-                    ID.unique(),
+                    course.coursecode,
                     {
                         coursename: course.coursename,
                         coursecode: course.coursecode,
