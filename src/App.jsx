@@ -84,8 +84,8 @@ function App() {
     {loading ? (
      <Loader />
     ) : (
-     <div>
-      <h1>Courses Here</h1>
+     <div className="text-center">
+      <h1 className="text-center">Please Select A Course</h1>
       {listDocs.map((val) => (
        <ul key={val.$id}>{val.coursename}</ul>
       ))}
