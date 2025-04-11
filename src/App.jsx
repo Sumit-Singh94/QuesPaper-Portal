@@ -3,7 +3,7 @@ import "./App.css";
 import Courses from "./Courses";
 import Dbservice from "./Appwrite_Config/Appwrite_Databases";
 import { ID } from "appwrite";
-import { Loader } from "./Components/index";
+import { Card, Loader,Cardgrid } from "./Components/index";
 
 function App() {
  const [uploaded, setuploaded] = useState(false)
@@ -84,11 +84,9 @@ function App() {
     {loading ? (
      <Loader />
     ) : (
-     <div className="text-center">
+     <div className="text-center flex flex-col items-center">
       <h1 className="text-center">Please Select A Course</h1>
-      {listDocs.map((val) => (
-       <ul key={val.$id}>{val.coursename}</ul>
-      ))}
+      <Cardgrid/> 
      </div>
     )}
    </div>
