@@ -4,6 +4,7 @@ import Courses from "./Courses";
 import Dbservice from "./Appwrite_Config/Appwrite_Databases";
 import { ID } from "appwrite";
 import { Card, Loader,Cardgrid } from "./Components/index";
+import { ifError } from "assert";
 
 function App() {
  const [uploaded, setuploaded] = useState(false)
@@ -78,11 +79,12 @@ function App() {
 
  return (
   <>
-   <p></p>
 
-   <div>
+   <div> 
+   
     {loading ? (
-     <Loader />
+        <Loader />
+    
     ) : (
      <div className="text-center flex flex-col items-center">
       <h1 className="text-center">Please Select A Course</h1>

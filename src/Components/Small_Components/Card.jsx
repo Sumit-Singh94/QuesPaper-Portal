@@ -104,7 +104,6 @@ const StyledWrapper = styled.div`
     color: #ffffff;
   }`;
 
-
 export const Cardgrid= ()=>{
     return (
         <div className='flex flex-wrap justify-center gap-4 p-4'>
