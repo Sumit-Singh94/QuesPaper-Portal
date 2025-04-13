@@ -5,10 +5,8 @@ const Loader = () => {
   return (
     <StyledWrapper>
       <div className="loader">
-        <div className="circle" />
-        <div className="circle" />
-        <div className="circle" />
-        <div className="circle" />
+        <label>Please wait...</label>
+        <div className="loading" />
       </div>
     </StyledWrapper>
   );
@@ -16,62 +14,61 @@ const Loader = () => {
 
 const StyledWrapper = styled.div`
   .loader {
-    --dim: 3rem;
-    width: var(--dim);
-    height: var(--dim);
+    width: 350px;
+    height: 180px;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 30px;
+    box-shadow: 2px 2px 10px -5px lightgrey;
+  }
+  .loading {
+    width: 100%;
+    height: 10px;
+    background: lightgrey;
+    border-radius: 10px;
     position: relative;
-    animation: spin988 2s linear infinite;
+    overflow: hidden;
   }
-
-  .loader .circle {
-    --color: #333;
-    --dim: 1.2rem;
-    width: var(--dim);
-    height: var(--dim);
-    background-color: var(--color);
-    border-radius: 50%;
+  .loading::after {
+    content: "";
     position: absolute;
-  }
-
-  .loader .circle:nth-child(1) {
     top: 0;
     left: 0;
+    width: 50%;
+    height: 10px;
+    background: #002;
+    border-radius: 10px;
+    z-index: 1;
+    animation: loading 0.6s alternate infinite;
+  }
+  label {
+    color: #002;
+    font-size: 18px;
+    animation: bit 0.6s alternate infinite;
   }
 
-  .loader .circle:nth-child(2) {
-    top: 0;
-    right: 0;
+  @keyframes bit {
+    from {
+      opacity: 0.3;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
-  .loader .circle:nth-child(3) {
-    bottom: 0;
-    left: 0;
-  }
-
-  .loader .circle:nth-child(4) {
-    bottom: 0;
-    right: 0;
-  }
-
-  @keyframes spin988 {
+  @keyframes loading {
     0% {
-      transform: scale(1) rotate(0);
+      left: -25%;
     }
-
-    20%, 25% {
-      transform: scale(1.3) rotate(90deg);
+    100% {
+      left: 70%;
     }
-
-    45%, 50% {
-      transform: scale(1) rotate(180deg);
-    }
-
-    70%, 75% {
-      transform: scale(1.3) rotate(270deg);
-    }
-
-    95%, 100% {
-      transform: scale(1) rotate(360deg);
+    0% {
+      left: -25%;
     }
   }`;
 
