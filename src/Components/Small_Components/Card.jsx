@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 export const Card = ({course}) => {
   return (
     <StyledWrapper>
+    
       <div className="card text-center">
         <div className="card-details">
           <p className="text-title">{course.coursename}</p>
-          {/* <p className="text-body"><Link to={`/course/${course.coursecode}`}>Click Here To See Papers</Link></p> */}
+          <p className="text-body">Click Here To See Papers</p>
         </div>
-        <button className="card-button">More info</button>
       </div>
     </StyledWrapper>
   );
@@ -39,21 +39,7 @@ const StyledWrapper = styled.div`
    place-content: center;
   }
 
-  .card-button {
-   transform: translate(-50%, 125%);
-   width: 60%;
-   border-radius: 1rem;
-   border: none;
-   background-color: #008bf8;
-   color: #fff;
-   font-size: 1rem;
-   padding: .5rem 1rem;
-   position: absolute;
-   left: 50%;
-   bottom: 0;
-   opacity: 0;
-   transition: 0.3s ease-out;
-  }
+}
 
   .text-body {
    color: rgb(134, 134, 134);
