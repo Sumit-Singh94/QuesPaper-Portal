@@ -2,7 +2,9 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <div>
+      <h1 className='text-center mt-10'>This is Footer</h1>
+    </div>
   )
 }
 

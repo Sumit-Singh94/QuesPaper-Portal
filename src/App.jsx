@@ -1,4 +1,6 @@
 import React from 'react'
+import { Footer, Header } from './Components'
+import { Outlet } from 'react-router-dom'
 
 
 
@@ -7,7 +9,10 @@ import React from 'react'
 function App() {
   return (
    <>
-      <
+      <Header/>
+      <Outlet/>
+      <Footer/>
+
    </>
   )
 }
