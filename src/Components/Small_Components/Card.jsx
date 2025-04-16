@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom';
 export const Card = ({course}) => {
   return (
     <StyledWrapper>
-    
+    <Link to={`/${course.coursecode}`}>
       <div className="card text-center">
         <div className="card-details">
           <p className="text-title">{course.coursename}</p>
-          <p className="text-title">{course.coursecode}</p>
           <p className="text-body">Click Here To See Papers</p>
         </div>
-      </div>
+      </div>  
+      </Link>
     </StyledWrapper>
   );
 }
@@ -40,7 +40,6 @@ const StyledWrapper = styled.div`
    place-content: center;
   }
 
-}
 
   .text-body {
    color: rgb(134, 134, 134);
