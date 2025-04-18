@@ -1,6 +1,7 @@
 import { Client, Databases, ID } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
+import { log } from "console";
 
 export class Service {
     client = new Client();
@@ -52,6 +53,15 @@ export class Service {
        
     }
 
+    async UploadSemester(){
+        try {
+            
+            
+        } catch (error) {
+            console.log("error::UploadSemester::error",error);
+            
+        }
+    }
 
 
 
