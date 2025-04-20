@@ -54,12 +54,7 @@ export class Service {
     }
 
     async UploadSemester(){
-        try {
-            
-        } catch (error) {
-            console.log("error::UploadSemester::error",error);
-            
-        }
+     
     }
 
 
