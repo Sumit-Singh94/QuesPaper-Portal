@@ -18,7 +18,7 @@ function Homepage() {
 
   //completed with fetching courses from database and preventing uploading duplicate courses and displaying the courses.
 
-  const fetchAndUploadCourses = async () => {
+  const fetchAndUploadCourses = async () => { 
    let fetchedData;
 
    try {
