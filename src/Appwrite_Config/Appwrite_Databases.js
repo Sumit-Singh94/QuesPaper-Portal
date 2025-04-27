@@ -52,13 +52,7 @@ export class Service {
        
     }
 
-    async uploadSemester(){
-        try {
-            
-        } catch (error) {
-            
-        }
-    }
+  
    
 
 
