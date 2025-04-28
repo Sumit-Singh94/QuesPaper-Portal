@@ -52,7 +52,7 @@ export class Service {
        
     }
 
-  
+  async uploadsemester(){}
    
 
 
