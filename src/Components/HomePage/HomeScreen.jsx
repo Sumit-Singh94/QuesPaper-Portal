@@ -5,7 +5,7 @@ import {Dbservice} from "../index";
 import { Card, Loader,Cardgrid } from '../index';
 
 
-function Homepage() {
+function HomeScreen() {
  const [uploaded, setuploaded] = useState(false)
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
@@ -97,4 +97,4 @@ function Homepage() {
  );
 }
 
-export default Homepage;
+export default HomeScreen;
