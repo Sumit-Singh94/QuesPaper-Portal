@@ -7,7 +7,7 @@ function Coursepage() {
   
   return (
     <div>
-      <h1 className='text-red-600'>this is a coursepage: {coursecode}</h1>
+     
     </div>
   )
 }
