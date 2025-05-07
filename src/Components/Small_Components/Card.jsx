@@ -7,7 +7,7 @@ import { Link, Navigate } from 'react-router-dom';
 export const Card = ({course}) => {
   return (
     <StyledWrapper>
-    <Link to={`/${course.coursecode}`}>
+    <Link to={`/course/${course.coursecode}`}>
       <div className="card text-center">
         <div className="card-details">
           <p className="text-title">{course.coursename}</p>
