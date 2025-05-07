@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Courses from '../../Courses';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 
 export const Card = ({course}) => {
