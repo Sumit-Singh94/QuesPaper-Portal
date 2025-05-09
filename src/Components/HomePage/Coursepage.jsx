@@ -23,9 +23,7 @@ export const FetchingSemester=()=>{
   return (
 
   <div>
-      {
-        
-      }
+   
 
   </div>
 
