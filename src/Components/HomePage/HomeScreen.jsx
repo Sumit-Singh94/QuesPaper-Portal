@@ -87,7 +87,7 @@ function HomeScreen() {
        
     ) : (
         <div>
-        <h1 className="text-center">Please Select A Course</h1>
+        <h1 className="text-center">Please Select A Course To See Papers</h1>
         <Cardgrid/> 
         </div>
       
