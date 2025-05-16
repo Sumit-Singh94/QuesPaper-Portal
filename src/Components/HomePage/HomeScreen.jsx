@@ -10,6 +10,7 @@ function HomeScreen() {
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
  const [Dbcoursecode, setDbCourseCode] = useState([]);
+ const [SemDbcoursecode, setSemDbCourseCode] = useState([]);
 
  let IsMounted = useRef(true);
 
@@ -21,13 +22,19 @@ function HomeScreen() {
   const fetchAndUploadCourses = async () => { 
    let fetchedData;
 
-   
+   let semfetchedData;
+
 
    try {
     if (!uploaded && IsMounted.current) {
      console.log("loading!!");
 
     fetchedData = await Dbservice.getCourses();
+    semfetchedData=await Dbservice.getSemester()
+
+    const semCodes=semfetchedData.documents.map((val)=>val.coursecode)
+    setSemDbCourseCode([...new Set(semCodes)])
+
      const codes = fetchedData.documents.map((val) => val.coursecode);
      setDbCourseCode([...new Set(codes)]);
     }
@@ -39,7 +46,11 @@ function HomeScreen() {
    try {
 
     fetchedData = await Dbservice.getCourses();
+    semfetchedData=await Dbservice.getSemester()
+
     console.log("Starting uploading");
+
+    const localSemCodes=Courses.map((semval)=(semval.semesters))
 
     const localCourseCodes = Courses.map((val) => (val.coursecode));
     const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code))

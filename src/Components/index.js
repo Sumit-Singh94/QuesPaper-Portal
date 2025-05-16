@@ -7,7 +7,6 @@ import Header from "./Header/Header"
 import Footer from "./Footer/Footer"
 import Courses from "../Courses"
 import { Coursepage } from "./HomePage/Coursepage"
-import { FetchingSemester } from "./HomePage/Coursepage"
 
 
 export {
