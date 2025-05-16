@@ -18,16 +18,5 @@ export function Coursepage() {
 }
 
 
-export const FetchingSemester=()=>{
-  
-  return (
 
-  <div>
-   
-   
-
-  </div>
-
-  )
-}
 
