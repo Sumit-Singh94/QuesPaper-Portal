@@ -52,9 +52,34 @@ export class Service {
        
     }
 
+    async UploadSemester(){
 
-    
-    
+        try {
+
+            for (const semester of Courses){
+
+              const sem =  await this.databases.createDocument(
+                  conf.appwriteDatabaseId,
+                  conf.appwriteSemesterCollectionId,
+                  semester.coursecode,
+                  {
+                    semestername: semester.semesters,
+                    courseid :semester.coursecode
+
+                  }
+              )
+
+            }
+
+            
+        } 
+        
+        
+        
+        catch (error) {
+             console.log("Error::getSemester::error",error);
+        }
+    }
 
        
    
