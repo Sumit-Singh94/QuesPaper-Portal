@@ -21,6 +21,8 @@ function HomeScreen() {
   const fetchAndUploadCourses = async () => { 
    let fetchedData;
 
+   
+
    try {
     if (!uploaded && IsMounted.current) {
      console.log("loading!!");
