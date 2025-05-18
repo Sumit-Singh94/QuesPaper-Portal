@@ -10,7 +10,7 @@ function HomeScreen() {
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
  const [Dbcoursecode, setDbCourseCode] = useState([]);
- const [SemDbcoursecode, setSemDbCourseCode] = useState([]);
+ const [SemDbcode, setSemDbCode] = useState([]);
 
  let IsMounted = useRef(true);
 
@@ -33,7 +33,7 @@ function HomeScreen() {
     semfetchedData=await Dbservice.getSemester()
 
     const semCodes=semfetchedData.documents.map((val)=>val.coursecode)
-    setSemDbCourseCode([...new Set(semCodes)])
+    setSemDbCode([...new Set(semCodes)])
 
      const codes = fetchedData.documents.map((val) => val.coursecode);
      setDbCourseCode([...new Set(codes)]);
@@ -52,10 +52,10 @@ function HomeScreen() {
 
     const localSemCodes=Courses.map((semval)=(semval.semesters))
 
+    const newLocalSemCodes = localSemCodes.filter((semval)=>())
+
     const localCourseCodes = Courses.map((val) => (val.coursecode));
-    const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code))
-      
-    );
+    const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code)));
 
     const coursesToUpload = Courses.filter((courses) =>
      newLocalCourseCodes.includes(courses.coursecode)
