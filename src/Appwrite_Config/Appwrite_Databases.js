@@ -51,17 +51,25 @@ export class Service {
   try {
    const semdata = [];
 
-   for (const semester of Courses) {
-    const sem = await this.databases.createDocument(
+   for (const course of Courses) {
+
+    const {semesters,coursecode}=course
+
+    for (const semesterName of semesters){
+
+
+  const sem = await this.databases.createDocument(
      conf.appwriteDatabaseId,
      conf.appwriteSemesterCollectionId,
-     semester.coursecode,
+     coursecode,
      {
-      semestername: semester.semesters,
-      courseid: semester.coursecode,
+      semestername: semesterName ,
+      courseid:coursecode ,
      }
     );
     semdata.push(sem);
+    }
+  
    }
    return semdata;
   } catch (error) {

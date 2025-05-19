@@ -21,7 +21,6 @@ function HomeScreen() {
 
   const fetchAndUploadCourses = async () => { 
    let fetchedData;
-
    let semfetchedData;
 
 
@@ -32,7 +31,7 @@ function HomeScreen() {
     fetchedData = await Dbservice.getCourses();
     semfetchedData=await Dbservice.getSemester()
 
-    const semCodes=semfetchedData.documents.map((val)=>val.coursecode)
+    const semCodes=semfetchedData.documents.map((val)=>val.courseid)
     setSemDbCode([...new Set(semCodes)])
 
      const codes = fetchedData.documents.map((val) => val.coursecode);
