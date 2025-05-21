@@ -3,6 +3,7 @@ import "../../App.css"
 import {Courses} from "../index";
 import {Dbservice} from "../index";
 import { Card, Loader,Cardgrid } from '../index';
+import 
 
 
 function HomeScreen() {
@@ -20,17 +21,20 @@ function HomeScreen() {
   //completed with fetching courses from database and preventing uploading duplicate courses and displaying the courses.
 
   const fetchAndUploadCourses = async () => { 
-   let fetchedData;
-   let semfetchedData;
-
 
    try {
+   const {coursecode,semesterName}=Courses
     if (!uploaded && IsMounted.current) {
+
      console.log("loading!!");
 
     fetchedData = await Dbservice.getCourses();
-    semfetchedData=await Dbservice.getSemester()
+    existingSemester=await Dbservice.getSemester()
 
+    const existingKeys=existingSemester.documents.map((semval)=> `${semval.coursecode}-{semval.semestername}`)
+
+    setSemDbCode([...new Set(existingKeys)])
+ 
 
      const codes = fetchedData.documents.map((val) => val.coursecode);
      setDbCourseCode([...new Set(codes)]);
@@ -40,16 +44,17 @@ function HomeScreen() {
     console.log("Error::getDbcourses::error", error);
    }
 
+
+
+
    try {
 
     fetchedData = await Dbservice.getCourses();
-    semfetchedData=await Dbservice.getSemester()
+    existingSemester=await Dbservice.getSemester()
 
     console.log("Starting uploading");
 
-    const localSemCodes=Courses.map((semval)=(semval.semesters))
-
-    const newLocalSemCodes = localSemCodes.filter((semval)=>())
+   
 
     const localCourseCodes = Courses.map((val) => (val.coursecode));
     const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code)));
@@ -65,6 +70,10 @@ function HomeScreen() {
      setuploaded(true),
      setlistDocs(fetchedData.documents);
      setLoading(false);
+    }
+
+    if (!SemDbcode.has(`${coursecode}-${semesterName}`)) {
+      
     }
    } catch (error) {
     console.error("Upload failed:", error);

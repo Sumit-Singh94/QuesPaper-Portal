@@ -1,6 +1,7 @@
 import { Client, Databases, ID } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
+import { configs } from "eslint-plugin-react-refresh";
 
 export class Service {
  client = new Client();
@@ -47,34 +48,42 @@ export class Service {
 
 
 
- async UploadSemester() {
+ async uploadSemester (){
+
   try {
-   const semdata = [];
 
-   for (const course of Courses) {
+    const  semresult=[]
+    
+      for ( const course of Courses){
+        const {semesterName,coursecode}=course
 
-    const {semesters,coursecode}=course
+         for (const semesters of semesterName){
 
-    for (const semesterName of semesters){
+          const semkey=`${coursecode}-${semesterName}`
 
+         const semresults= await this.databases.createDocument(
 
-  const sem = await this.databases.createDocument(
-     conf.appwriteDatabaseId,
-     conf.appwriteSemesterCollectionId,
-     coursecode,
-     {
-      semestername: semesterName ,
-      courseid:coursecode ,
-     }
-    );
-    semdata.push(sem);
-    }
-  
-   }
-   return semdata;
+            conf.appwriteDatabaseId,
+            conf.appwriteSemesterCollectionId,
+
+            ID.unique(),
+            {
+                semestername:semesters,
+                courseid:coursecode,
+
+            }
+          
+          )
+          semresult.push(semresults)
+        
+        }
+      }
+
+    
   } catch (error) {
-   console.log("Error::getSemester::error", error);
+     console.log("Error::uploadSemester::error", error);
   }
+  
  }
 
 
