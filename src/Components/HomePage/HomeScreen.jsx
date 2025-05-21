@@ -3,7 +3,6 @@ import "../../App.css"
 import {Courses} from "../index";
 import {Dbservice} from "../index";
 import { Card, Loader,Cardgrid } from '../index';
-import 
 
 
 function HomeScreen() {
@@ -11,9 +10,9 @@ function HomeScreen() {
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
  const [Dbcoursecode, setDbCourseCode] = useState([]);
- const [SemDbcode, setSemDbCode] = useState([]);
 
  let IsMounted = useRef(true);
+
 
  useEffect(() => {
   // fetching courses from the database and saving it in the dbcoursescode then extracting the local codes and filtering out the newCourseCode which is not included in the database from them and uploading the new courses which matches with the new localCodes.
@@ -23,19 +22,13 @@ function HomeScreen() {
   const fetchAndUploadCourses = async () => { 
 
    try {
-   const {coursecode,semesterName}=Courses
     if (!uploaded && IsMounted.current) {
 
+       await Dbservice.uploadSemester();
      console.log("loading!!");
 
-    fetchedData = await Dbservice.getCourses();
-    existingSemester=await Dbservice.getSemester()
-
-    const existingKeys=existingSemester.documents.map((semval)=> `${semval.coursecode}-{semval.semestername}`)
-
-    setSemDbCode([...new Set(existingKeys)])
- 
-
+    const fetchedData = await Dbservice.getCourses();
+  
      const codes = fetchedData.documents.map((val) => val.coursecode);
      setDbCourseCode([...new Set(codes)]);
     }
@@ -49,8 +42,7 @@ function HomeScreen() {
 
    try {
 
-    fetchedData = await Dbservice.getCourses();
-    existingSemester=await Dbservice.getSemester()
+   const fetchedData = await Dbservice.getCourses();
 
     console.log("Starting uploading");
 
@@ -63,18 +55,14 @@ function HomeScreen() {
      newLocalCourseCodes.includes(courses.coursecode)
     );
 
-    if (coursesToUpload.length > 0 ) {
-    Dbservice.uploadCourses(coursesToUpload);
-     
+    if (coursesToUpload.length > 0) {
+    await Dbservice.uploadCourses(coursesToUpload);
 
      setuploaded(true),
      setlistDocs(fetchedData.documents);
      setLoading(false);
     }
 
-    if (!SemDbcode.has(`${coursecode}-${semesterName}`)) {
-      
-    }
    } catch (error) {
     console.error("Upload failed:", error);
    }

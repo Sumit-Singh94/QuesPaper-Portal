@@ -53,33 +53,39 @@ export class Service {
   try {
 
     const  semresult=[]
+
+   const fetchedsemcodes= await Dbservice.getSemester()
+
+   const existingsemkeys=fetchedsemcodes.documents.map((semval)=>`${semval.courseid}-${semval.semestername}`)
     
       for ( const course of Courses){
         const {semesterName,coursecode}=course
 
          for (const semesters of semesterName){
 
-          const semkey=`${coursecode}-${semesterName}`
+          const semkeys=`${coursecode}-${semesters}`
 
-         const semresults= await this.databases.createDocument(
+          if (!existingsemkeys.includes(semkeys)) {
+             const semresults= await this.databases.createDocument(
 
             conf.appwriteDatabaseId,
             conf.appwriteSemesterCollectionId,
 
-            ID.unique(),
+         
             {
                 semestername:semesters,
                 courseid:coursecode,
 
             }
-          
           )
-          semresult.push(semresults)
+           semresult.push(semresults)
+          }
         
-        }
+    };
+        
       }
-
-    
+       return semresult
+   
   } catch (error) {
      console.log("Error::uploadSemester::error", error);
   }
