@@ -24,7 +24,7 @@ function HomeScreen() {
    try {
     if (!uploaded && IsMounted.current) {
 
-       await Dbservice.uploadSemester();
+  await Dbservice.uploadSemester();
      console.log("loading!!");
 
     const fetchedData = await Dbservice.getCourses();
