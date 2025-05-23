@@ -9,7 +9,8 @@ export class Service {
  databases;
 
  constructor() {
-  this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);
+  this.client.setEndpoint(conf.appwriteUrl)
+             .setProject(conf.appwriteProjectId);
   this.databases = new Databases(this.client);
  }
 
@@ -55,9 +56,7 @@ export class Service {
 
     const  semresult=[]
 
-  //  const fetchedsemcodes= await Dbservice.getSemester()
    const fetchedsemcodes = await this.getSemester();
-
 
    const existingsemkeys=fetchedsemcodes.documents.map((semval)=>`${semval.courseid}-${semval.semestername}`)
     

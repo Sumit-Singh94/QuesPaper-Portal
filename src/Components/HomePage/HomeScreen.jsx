@@ -1,11 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Children } from "react";
 import "../../App.css"
 import {Courses} from "../index";
 import {Dbservice} from "../index";
 import { Card, Loader,Cardgrid } from '../index';
-
+import { courseContext } from "../Context";
 
 function HomeScreen() {
+
+  <courseContext>
+
  const [uploaded, setuploaded] = useState(false)
  const [loading, setLoading] = useState(true);
  const [listDocs, setlistDocs] = useState([]);
@@ -56,11 +59,13 @@ function HomeScreen() {
 
     if (coursesToUpload.length > 0) {
 
-     Dbservice.uploadCourses(coursesToUpload);
-     Dbservice.uploadSemester();
+      Dbservice.uploadCourses(coursesToUpload);
+    //  Dbservice.uploadSemester();
+
+    const updatedData= await Dbservice.getCourses()
 
      setuploaded(true),
-     setlistDocs(fetchedData.documents);
+     setlistDocs(updatedData);
      setLoading(false);
     }
 
@@ -104,5 +109,6 @@ function HomeScreen() {
   </>
  );
 }
+</courseContext>
 
 export default HomeScreen;

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import Courses from '../../Courses';
 import { Link, Navigate } from 'react-router-dom';
 
-
 export const Card = ({course}) => {
+
+  
   return (
     <StyledWrapper>
     <Link to={`/course/${course.coursecode}`}>

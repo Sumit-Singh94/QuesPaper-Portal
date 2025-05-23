@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { Coursepage, HomeScreen } from "./Components/index.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { courseContext } from "./Components/ContextProvider.js";
 
 const router = createBrowserRouter([
  {
@@ -28,6 +29,13 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
  <StrictMode>
-  <RouterProvider router={router} />
+<courseContext.Provider value={}>
+
+ <RouterProvider router={router} />
+
+</courseContext.Provider>
+
+
+ 
  </StrictMode>
 )
