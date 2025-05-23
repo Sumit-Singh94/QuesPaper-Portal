@@ -1,7 +1,8 @@
 import { Client, Databases, ID } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
-import { configs } from "eslint-plugin-react-refresh";
+
+
 
 export class Service {
  client = new Client();
@@ -54,7 +55,9 @@ export class Service {
 
     const  semresult=[]
 
-   const fetchedsemcodes= await Dbservice.getSemester()
+  //  const fetchedsemcodes= await Dbservice.getSemester()
+   const fetchedsemcodes = await this.getSemester();
+
 
    const existingsemkeys=fetchedsemcodes.documents.map((semval)=>`${semval.courseid}-${semval.semestername}`)
     
@@ -66,12 +69,13 @@ export class Service {
           const semkeys=`${coursecode}-${semesters}`
 
           if (!existingsemkeys.includes(semkeys)) {
+            console.log(`Semester Uploading: ${coursecode} - ${semesters}`);
+
              const semresults= await this.databases.createDocument(
 
             conf.appwriteDatabaseId,
             conf.appwriteSemesterCollectionId,
-
-         
+              ID.unique(),
             {
                 semestername:semesters,
                 courseid:coursecode,

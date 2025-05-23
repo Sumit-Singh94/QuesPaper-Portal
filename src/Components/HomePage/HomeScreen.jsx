@@ -22,9 +22,10 @@ function HomeScreen() {
   const fetchAndUploadCourses = async () => { 
 
    try {
+
     if (!uploaded && IsMounted.current) {
 
-  await Dbservice.uploadSemester();
+
      console.log("loading!!");
 
     const fetchedData = await Dbservice.getCourses();
@@ -46,8 +47,6 @@ function HomeScreen() {
 
     console.log("Starting uploading");
 
-   
-
     const localCourseCodes = Courses.map((val) => (val.coursecode));
     const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code)));
 
@@ -56,7 +55,9 @@ function HomeScreen() {
     );
 
     if (coursesToUpload.length > 0) {
-    await Dbservice.uploadCourses(coursesToUpload);
+
+     Dbservice.uploadCourses(coursesToUpload);
+     Dbservice.uploadSemester();
 
      setuploaded(true),
      setlistDocs(fetchedData.documents);
