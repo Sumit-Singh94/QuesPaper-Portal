@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Courses from '../../Courses';
 import { Link, Navigate } from 'react-router-dom';
+import { courseContext } from '../Context';
+
+
 
 export const Card = ({course}) => {
 
-  
+
   return (
     <StyledWrapper>
     <Link to={`/course/${course.coursecode}`}>
@@ -66,10 +69,15 @@ const StyledWrapper = styled.div`
 
 
 export const Cardgrid= ()=>{
+
+ const {listDocs}=useContext(courseContext)
+
+  
+ 
     return (
         <div className='flex flex-wrap justify-center gap-4 p-4'>
-             {Courses.map((course)=>(
-                    <Card key={course.coursecode} coursename={course.coursename} course={course} />
+             {listDocs.map((course)=>(
+                    <Card key={course.coursecode} course={course} />
                 ))}
 
         </div>

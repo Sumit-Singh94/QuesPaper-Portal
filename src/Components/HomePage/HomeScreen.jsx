@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Children } from "react";
+import { useState, useEffect, useRef, Children, useContext } from "react";
 import "../../App.css"
 import {Courses} from "../index";
 import {Dbservice} from "../index";
@@ -7,11 +7,10 @@ import { courseContext } from "../Context";
 
 function HomeScreen() {
 
-  <courseContext>
+  const {setlistDocs} = useContext(courseContext)
 
  const [uploaded, setuploaded] = useState(false)
  const [loading, setLoading] = useState(true);
- const [listDocs, setlistDocs] = useState([]);
  const [Dbcoursecode, setDbCourseCode] = useState([]);
 
  let IsMounted = useRef(true);
@@ -42,11 +41,9 @@ function HomeScreen() {
    }
 
 
-
-
    try {
 
-   const fetchedData = await Dbservice.getCourses();
+   const  fetchedData = await Dbservice.getCourses();
 
     console.log("Starting uploading");
 
@@ -65,7 +62,7 @@ function HomeScreen() {
     const updatedData= await Dbservice.getCourses()
 
      setuploaded(true),
-     setlistDocs(updatedData);
+     setlistDocs(updatedData.documents);
      setLoading(false);
     }
 
@@ -109,6 +106,6 @@ function HomeScreen() {
   </>
  );
 }
-</courseContext>
+
 
 export default HomeScreen;
