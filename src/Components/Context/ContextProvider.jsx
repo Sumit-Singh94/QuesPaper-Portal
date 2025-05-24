@@ -16,4 +16,4 @@ import { useState } from 'react';
   )
 }
 
-export default CourseContextProvider
+export default CourseContextProvider;
