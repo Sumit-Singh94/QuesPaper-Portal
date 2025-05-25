@@ -22,6 +22,7 @@ function HomeScreen() {
   //completed with fetching courses from database and preventing uploading duplicate courses and displaying the courses.
 
   const fetchAndUploadCourses = async () => { 
+let fetchedData
 
    try {
 
@@ -30,22 +31,13 @@ function HomeScreen() {
 
      console.log("loading!!");
 
-    const fetchedData = await Dbservice.getCourses();
+     fetchedData = await Dbservice.getCourses();
   
      const codes = fetchedData.documents.map((val) => val.coursecode);
      setDbCourseCode([...new Set(codes)]);
     }
-    
-   } catch (error) {
-    console.log("Error::getDbcourses::error", error);
-   }
 
-
-   try {
-
-   const  fetchedData = await Dbservice.getCourses();
-
-    console.log("Starting uploading");
+     console.log("Starting uploading");
 
     const localCourseCodes = Courses.map((val) => (val.coursecode));
     const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code)));
@@ -54,26 +46,42 @@ function HomeScreen() {
      newLocalCourseCodes.includes(courses.coursecode)
     );
 
+    let updatedData;
+
     if (coursesToUpload.length > 0) {
 
-      Dbservice.uploadCourses(coursesToUpload);
-    //  Dbservice.uploadSemester();
+     await Dbservice.uploadCourses(coursesToUpload);
 
-    const updatedData= await Dbservice.getCourses()
-
+     updatedData= await Dbservice.getCourses()
      setuploaded(true),
      setlistDocs(updatedData.documents);
      setLoading(false);
     }
+    else
+    {
+        updatedData = await Dbservice.getCourses();
 
-   } catch (error) {
-    console.error("Upload failed:", error);
-   }
+      // await Dbservice.uploadSemester()
+     setuploaded(true),
+    //  setlistDocs(updatedData.documents);
+     setLoading(false);
+    }
+
 
    if (IsMounted.current) {
     setLoading(false);
    }
   
+    
+   } 
+   
+   
+   catch (error) {
+    console.log("Error::getDbcourses::error", error);
+   }
+
+
+   
   };
 
   fetchAndUploadCourses()
