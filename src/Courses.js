@@ -2,8 +2,8 @@
 
 const Courses = [
   {
-     coursename: "BTECHhhh",
-    coursecode: "BTECHhhh",
+     coursename: "SRM",
+    coursecode: "SRM",
     semesterName:[]
   },
   {

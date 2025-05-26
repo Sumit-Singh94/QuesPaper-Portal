@@ -38,7 +38,7 @@ function HomeScreen() {
      setDbCourseCode([...new Set(codes)]);
     }
 
-     console.log("Starting uploading");
+     console.log("Starting upload");
 
     const localCourseCodes = Courses.map((val) => (val.coursecode));
     const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code)));
@@ -46,13 +46,13 @@ function HomeScreen() {
     const coursesToUpload = Courses.filter((courses) =>
      newLocalCourseCodes.includes(courses.coursecode)
     );
-
+    let updatedData;
 
     if (coursesToUpload.length > 0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
-
-    //  updatedData= await Dbservice.getCourses()
+     await Dbservice.uploadSemester()
+     updatedData= await Dbservice.getCourses()
      setuploaded(true),
      setlistDocs(updatedData.documents);
      setLoading(false);
@@ -60,16 +60,17 @@ function HomeScreen() {
     else
     {
        updatedData = await Dbservice.getCourses();
-
-      // await Dbservice.uploadSemester()
-     setuploaded(true),
-    //  setlistDocs(updatedData.documents);
-     setLoading(false);
+      await Dbservice.uploadSemester()
+    setlistDocs(updatedData.documents)
+    setLoading(false);
+  
     }
 
 
    if (IsMounted.current) {
-    setLoading(false);
+      setuploaded(true);
+          // setlistDocs(updatedData.documents);
+          setLoading(false);
    }
   
     
