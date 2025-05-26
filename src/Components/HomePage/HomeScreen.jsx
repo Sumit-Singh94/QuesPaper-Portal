@@ -22,7 +22,8 @@ function HomeScreen() {
   //completed with fetching courses from database and preventing uploading duplicate courses and displaying the courses.
 
   const fetchAndUploadCourses = async () => { 
-let fetchedData
+   let fetchedData
+   
 
    try {
 
@@ -46,20 +47,19 @@ let fetchedData
      newLocalCourseCodes.includes(courses.coursecode)
     );
 
-    let updatedData;
 
     if (coursesToUpload.length > 0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
 
-     updatedData= await Dbservice.getCourses()
+    //  updatedData= await Dbservice.getCourses()
      setuploaded(true),
      setlistDocs(updatedData.documents);
      setLoading(false);
     }
     else
     {
-        updatedData = await Dbservice.getCourses();
+       updatedData = await Dbservice.getCourses();
 
       // await Dbservice.uploadSemester()
      setuploaded(true),

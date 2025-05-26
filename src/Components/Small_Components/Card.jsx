@@ -72,12 +72,13 @@ export const Cardgrid= ()=>{
 
  const {listDocs}=useContext(courseContext)
 
-  
  
     return (
         <div className='flex flex-wrap justify-center gap-4 p-4'>
+      
              {listDocs.map((course)=>(
-                    <Card key={course.coursecode} course={course} />
+                    <Card key={course.coursecode} course={course} />,
+                     console.log("Rendering course:", course)
                 ))}
 
         </div>
