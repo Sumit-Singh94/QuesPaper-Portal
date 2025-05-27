@@ -52,15 +52,15 @@ function HomeScreen() {
 
      await Dbservice.uploadCourses(coursesToUpload);
      await Dbservice.uploadSemester()
-     updatedData= await Dbservice.getCourses()
+      updatedData= await Dbservice.getCourses()
      setuploaded(true),
      setlistDocs(updatedData.documents);
      setLoading(false);
     }
     else
     {
-       updatedData = await Dbservice.getCourses();
-      await Dbservice.uploadSemester()
+      updatedData=fetchedData
+    await Dbservice.uploadSemester()
     setlistDocs(updatedData.documents)
     setLoading(false);
   
@@ -69,7 +69,7 @@ function HomeScreen() {
 
    if (IsMounted.current) {
       setuploaded(true);
-          // setlistDocs(updatedData.documents);
+      setlistDocs(updatedData.documents);
           setLoading(false);
    }
   

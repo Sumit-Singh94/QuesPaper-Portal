@@ -1,6 +1,7 @@
 import { Client, Databases, ID } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
+import { HomeScreen } from "../Components";
 
 
 
@@ -14,10 +15,10 @@ export class Service {
   this.databases = new Databases(this.client);
  }
 
- async uploadCourses() {
+ async uploadCourses(coursesToUpload=Courses) {
   try {
    const results = [];
-   for (const course of Courses) {
+   for (const course of coursesToUpload) {
     const result = await this.databases.createDocument(
      conf.appwriteDatabaseId,
      conf.appwriteCoursesCollectionId,
@@ -74,7 +75,7 @@ export class Service {
 
             conf.appwriteDatabaseId,
             conf.appwriteSemesterCollectionId,
-              ID.unique(),
+            ID.unique(),
             {
                 semestername:semesters,
                 courseid:coursecode,
