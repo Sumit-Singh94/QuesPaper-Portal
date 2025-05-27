@@ -5,6 +5,7 @@ import { HomeScreen } from "../Components";
 
 
 
+
 export class Service {
  client = new Client();
  databases;
@@ -17,25 +18,25 @@ export class Service {
 
  async uploadCourses(coursesToUpload=Courses) {
   try {
-   const results = [];
-   for (const course of coursesToUpload) {
-    const result = await this.databases.createDocument(
-     conf.appwriteDatabaseId,
-     conf.appwriteCoursesCollectionId,
-     course.coursecode,
-     {
-      coursename: course.coursename,
-      coursecode: course.coursecode,
-     }
-    );
-    results.push(result);
-   }
-   return results;
+    const results = [];
+    for (const course of coursesToUpload) {
+      const result = await this.databases.createDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCoursesCollectionId,
+       course.coursecode,
+        {
+          coursename: course.coursename,
+          coursecode: course.coursecode,
+        }
+      );
+      results.push(result);
+    }
+    return results;
   } catch (error) {
-   console.error("Error uploading courses", error);
-   throw error;
+    console.error("Error uploading courses", error);
+    throw error;
   }
- }
+}
 
  async getCourses() {
   try {
@@ -46,6 +47,7 @@ export class Service {
    return docs;
   } catch (error) {
    console.log("Error::getcourses::error", error);
+   throw error
   }
  }
 
@@ -75,7 +77,7 @@ export class Service {
 
             conf.appwriteDatabaseId,
             conf.appwriteSemesterCollectionId,
-            ID.unique(),
+             `${coursecode}-${semesters}`,
             {
                 semestername:semesters,
                 courseid:coursecode,

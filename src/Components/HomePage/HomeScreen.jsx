@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Children, useContext } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import "../../App.css"
 import {Courses} from "../index";
 import {Dbservice} from "../index";
@@ -22,65 +22,56 @@ function HomeScreen() {
   //completed with fetching courses from database and preventing uploading duplicate courses and displaying the courses.
 
   const fetchAndUploadCourses = async () => { 
-   let fetchedData
    
 
    try {
 
     if (!uploaded && IsMounted.current) {
 
+     console.log("started fetching and uploading process!!");
 
-     console.log("loading!!");
 
-     fetchedData = await Dbservice.getCourses();
-  
-     const codes = fetchedData.documents.map((val) => val.coursecode);
-     setDbCourseCode([...new Set(codes)]);
-    }
+    const fetchedData = await Dbservice.getCourses();
+    const existingcodes = fetchedData.documents.map((val) => val.coursecode);
+     
 
-     console.log("Starting upload");
+     console.log("Starting upload process");
 
-    const localCourseCodes = Courses.map((val) => (val.coursecode));
-    const newLocalCourseCodes = localCourseCodes.filter((code) =>  (!Dbcoursecode.includes(code)));
-
+    const localCourseCodes = Courses.map((val) => (val.coursecode))
+    // const newCourseCodes = localCourseCodes.filter((code) =>  (!existingcodes.includes(code)));
     const coursesToUpload = Courses.filter((courses) =>
-     newLocalCourseCodes.includes(courses.coursecode)
+     !existingcodes.includes(courses.coursecode)
     );
-    let updatedData;
 
     if (coursesToUpload.length > 0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
-     await Dbservice.uploadSemester()
-      updatedData= await Dbservice.getCourses()
-     setuploaded(true),
-     setlistDocs(updatedData.documents);
-     setLoading(false);
-    }
-    else
-    {
-      updatedData=fetchedData
-    await Dbservice.uploadSemester()
-    setlistDocs(updatedData.documents)
-    setLoading(false);
-  
+     
     }
 
 
-   if (IsMounted.current) {
-      setuploaded(true);
-      setlistDocs(updatedData.documents);
-          setLoading(false);
-   }
-  
+    // await Dbservice.uploadSemester()
+
+    const updatedData = await Dbservice.getCourses();
+ setlistDocs(updatedData.documents);
+ setuploaded(true)
+ setLoading(false);
     
-   } 
-   
+  //  const finalData= coursesToUpload.length > 0 ? await Dbservice.getCourses(): fetchedData
+     
+
+  
+  }
+     
+ } 
    
    catch (error) {
     console.log("Error::getDbcourses::error", error);
    }
 
+      if (IsMounted.current) {
+     setLoading(false);
+    }
 
    
   };

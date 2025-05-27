@@ -68,19 +68,24 @@ const StyledWrapper = styled.div`
 
 
 
-export const Cardgrid= ()=>{
+// ...existing code...
 
- const {listDocs}=useContext(courseContext)
+export const Cardgrid = () => {
+    const {listDocs} = useContext(courseContext);
 
- 
+    // Add error handling for empty or undefined listDocs
+    if (!listDocs || listDocs.length === 0) {
+        return <div>No courses available</div>;
+    }
+    
     return (
         <div className='flex flex-wrap justify-center gap-4 p-4'>
-      
-             {listDocs.map((course)=>(
-                    <Card key={course.coursecode} course={course} />
-                    
-                ))}
-
+            {listDocs.map((course) => (
+                <Card 
+                    key={course.coursecode} 
+                    course={course} 
+                />
+            ))}
         </div>
     )
 }
