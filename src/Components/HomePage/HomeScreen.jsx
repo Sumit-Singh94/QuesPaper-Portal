@@ -39,7 +39,7 @@ function HomeScreen() {
      !existingcodes.includes(courses.coursecode)
     );
 
-    if (coursesToUpload.length > 0 || coursesToUpload==0) {
+    if (coursesToUpload.length >= 0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
         const updatedData = await Dbservice.getCourses();
