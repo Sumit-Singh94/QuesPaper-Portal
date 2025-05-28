@@ -9,7 +9,6 @@ function HomeScreen() {
 
   const {setlistDocs} = useContext(courseContext)
 
- const [uploaded, setuploaded] = useState(false)
  const [loading, setLoading] = useState(true);
  const [Dbcoursecode, setDbCourseCode] = useState([]);
 
@@ -26,40 +25,35 @@ function HomeScreen() {
 
    try {
 
-    if (!uploaded && IsMounted.current) {
+    if ( IsMounted.current) {
 
      console.log("started fetching and uploading process!!");
 
 
     const fetchedData = await Dbservice.getCourses();
     const existingcodes = fetchedData.documents.map((val) => val.coursecode);
-     
-
+    
      console.log("Starting upload process");
 
-    const localCourseCodes = Courses.map((val) => (val.coursecode))
-    // const newCourseCodes = localCourseCodes.filter((code) =>  (!existingcodes.includes(code)));
     const coursesToUpload = Courses.filter((courses) =>
      !existingcodes.includes(courses.coursecode)
     );
 
-    if (coursesToUpload.length > 0) {
+    if (coursesToUpload.length > 0 || coursesToUpload==0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
+        const updatedData = await Dbservice.getCourses();
+ setlistDocs(updatedData.documents);
+ setLoading(false);
      
     }
 
 
     // await Dbservice.uploadSemester()
 
-    const updatedData = await Dbservice.getCourses();
- setlistDocs(updatedData.documents);
- setuploaded(true)
- setLoading(false);
+ 
     
-  //  const finalData= coursesToUpload.length > 0 ? await Dbservice.getCourses(): fetchedData
      
-
   
   }
      

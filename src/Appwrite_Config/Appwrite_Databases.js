@@ -1,7 +1,6 @@
-import { Client, Databases, ID } from "appwrite";
+import { Client, Databases, ID, Query } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
-import { HomeScreen } from "../Components";
 
 
 
@@ -16,10 +15,21 @@ export class Service {
   this.databases = new Databases(this.client);
  }
 
+
  async uploadCourses(coursesToUpload=Courses) {
   try {
     const results = [];
-    for (const course of coursesToUpload) {
+    for (const course of coursesToUpload ) {
+      const existingDocs= await this.databases.listDocuments(
+         conf.appwriteDatabaseId,
+        conf.appwriteCoursesCollectionId,
+        [
+          Query.equal("coursecode",course.coursecode)
+        ]
+      )
+
+      if (existingDocs.documents.length===0){
+
       const result = await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCoursesCollectionId,
@@ -30,13 +40,15 @@ export class Service {
         }
       );
       results.push(result);
-    }
+    }}
     return results;
   } catch (error) {
     console.error("Error uploading courses", error);
     throw error;
   }
-}
+  }
+
+
 
  async getCourses() {
   try {
