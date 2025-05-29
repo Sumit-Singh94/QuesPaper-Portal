@@ -51,9 +51,7 @@ function HomeScreen() {
 
     // await Dbservice.uploadSemester()
 
- 
-    
-     
+
   
   }
      
