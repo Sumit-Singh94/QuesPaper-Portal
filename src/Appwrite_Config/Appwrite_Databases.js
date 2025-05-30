@@ -3,8 +3,6 @@ import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
 
 
-
-
 export class Service {
  client = new Client();
  databases;
