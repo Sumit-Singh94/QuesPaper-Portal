@@ -16,7 +16,7 @@ export class Service {
 
  async uploadCourses(coursesToUpload=Courses) {
   try {
-    const results = [];
+    const results = []
     for (const course of coursesToUpload ) {
       const existingDocs= await this.databases.listDocuments(
          conf.appwriteDatabaseId,
@@ -37,7 +37,7 @@ export class Service {
           coursecode: course.coursecode,
         }
       );
-      results.push(result);
+      results.push(result)
     }}
     return results;
   } catch (error) {
@@ -69,7 +69,7 @@ export class Service {
 
     const  semresult=[]
 
-   const fetchedsemcodes = await this.getSemester();
+   const fetchedsemcodes = await this.getSemester()
 
    const existingsemkeys=fetchedsemcodes.documents.map((semval)=>`${semval.courseid}-${semval.semestername}`)
     
