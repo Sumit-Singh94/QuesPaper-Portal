@@ -10,7 +10,7 @@ function HomeScreen() {
   const {setlistDocs} = useContext(courseContext)
 
  const [loading, setLoading] = useState(true);
- const [Dbcoursecode, setDbCourseCode] = useState([]);
+//  const [Dbcoursecode, setDbCourseCode] = useState([]);
 
  let IsMounted = useRef(true);
 
@@ -22,6 +22,8 @@ function HomeScreen() {
 
   const fetchAndUploadCourses = async () => { 
    
+        
+
 
    try {
 
@@ -31,7 +33,9 @@ function HomeScreen() {
 
 
     const fetchedData = await Dbservice.getCourses();
-    const existingcodes = fetchedData.documents.map((val) => val.coursecode);
+    const existingcodes = fetchedData.documents.map((val) => val.coursecode)
+  
+      console.log("fetchedData data is :",fetchedData.documents)
     
      console.log("Starting upload process");
 
@@ -39,21 +43,26 @@ function HomeScreen() {
      !existingcodes.includes(courses.coursecode)
     );
 
-    if (coursesToUpload.length >= 0) {
+    if (coursesToUpload.length > 0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
         const updatedData = await Dbservice.getCourses();
  setlistDocs(updatedData.documents);
  setLoading(false);
-     
+    }
+     else {
+     console.log("No new courses to upload, using existing data");
+     // Use the already fetched data even if no new courses were uploaded
+     setlistDocs(fetchedData.documents);
+     }
+
+   try {
+        await Dbservice.uploadSemester()
+    } catch (semesterError) {
+        console.log("Semester upload failed, but continuing:", semesterError);
     }
 
-
-    // await Dbservice.uploadSemester()
-
-
-  
-  }
+   
      
  } 
    
