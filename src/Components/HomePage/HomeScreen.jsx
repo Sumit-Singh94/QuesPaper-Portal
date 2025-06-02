@@ -22,8 +22,6 @@ function HomeScreen() {
 
   const fetchAndUploadCourses = async () => { 
    
-        
-
 
    try {
 
@@ -52,38 +50,40 @@ function HomeScreen() {
     }
      else {
      console.log("No new courses to upload, using existing data");
-     // Use the already fetched data even if no new courses were uploaded
      setlistDocs(fetchedData.documents);
      }
 
    try {
         await Dbservice.uploadSemester()
-    } catch (semesterError) {
+    } 
+    catch (semesterError) {
         console.log("Semester upload failed, but continuing:", semesterError);
     }
-
-   
-     
- } 
-   
-   catch (error) {
-    console.log("Error::getDbcourses::error", error);
-   }
+ 
 
       if (IsMounted.current) {
      setLoading(false);
     }
-
+  }
    
-  };
+  }
+  catch (error) {
+    console.log("Error::getDbcourses::error", error);
+     if (IsMounted.current) {
+     setLoading(false);
+    }
+   }
+  }
 
-  fetchAndUploadCourses()
+
+
+  fetchAndUploadCourses();
   
 
   return () => {
    IsMounted.current = false;
-  };
- }, []);
+ };
+  }, []);
 
  
 
