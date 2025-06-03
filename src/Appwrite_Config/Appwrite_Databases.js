@@ -14,10 +14,13 @@ export class Service {
  }
 
 
- async uploadCourses(coursesToUpload=Courses) {
+ async uploadCourses(coursesToUpload = Courses) {
   try {
+
     const results = []
+
     for (const course of coursesToUpload ) {
+
       const existingDocs= await this.databases.listDocuments(
          conf.appwriteDatabaseId,
         conf.appwriteCoursesCollectionId,
@@ -25,6 +28,10 @@ export class Service {
           Query.equal("coursecode",course.coursecode)
         ]
       )
+
+        if (!existingDocs?.documents) {
+          throw new Error('Failed to check existing documents');
+        }
 
       if (existingDocs.documents.length===0){
 
@@ -37,12 +44,16 @@ export class Service {
           coursecode: course.coursecode,
         }
       );
+        if (!result) {
+            throw new Error(`Failed to create document for ${course.coursecode}`);
+          }
       results.push(result)
-    }}
+    }
+  }
     return results;
   } catch (error) {
-    console.error("Error uploading courses", error);
-    throw error;
+    console.error("Error uploading courses", error)
+   throw error
   }
   }
 
@@ -81,7 +92,7 @@ export class Service {
           const semkeys=`${coursecode}-${semesters}`
 
           if (!existingsemkeys.includes(semkeys)) {
-            console.log(`Semester Uploading: ${coursecode} - ${semesters}`);
+            // console.log(`Semester Uploading: ${coursecode} - ${semesters}`);
 
              const semresults= await this.databases.createDocument(
 
@@ -124,6 +135,7 @@ export class Service {
   }
    catch (error) {
    console.log("Error::getSemester::error", error);
+   throw error
   }
  }
 }

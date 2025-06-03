@@ -41,16 +41,17 @@ function HomeScreen() {
      !existingcodes.includes(courses.coursecode)
     );
 
+
+    // const finalData = fetchedData.documents;
+
     if (coursesToUpload.length > 0) {
 
      await Dbservice.uploadCourses(coursesToUpload);
-        const updatedData = await Dbservice.getCourses();
- setlistDocs(updatedData.documents);
- setLoading(false);
+    // setlistDocs(updatedData.documents);   
     }
-     else {
-     console.log("No new courses to upload, using existing data");
-     setlistDocs(fetchedData.documents);
+
+     const updatedData = (await Dbservice.getCourses()).documents
+      // let finalData=updatedData.documents
      }
 
    try {
@@ -61,12 +62,14 @@ function HomeScreen() {
     }
  
 
-      if (IsMounted.current) {
-     setLoading(false);
+    if (IsMounted.current) {
+      setlistDocs(updatedData);
+      setLoading(false);
     }
+
   }
    
-  }
+  
   catch (error) {
     console.log("Error::getDbcourses::error", error);
      if (IsMounted.current) {
