@@ -82,14 +82,20 @@ export class Service {
 
    const fetchedsemcodes = await this.getSemester()
 
-   const existingsemkeys=fetchedsemcodes.documents.map((semval)=>`${semval.courseid}-${semval.semestername}`)
-    
+   const existingsemkeys=fetchedsemcodes.documents.map((semval)=>
+     semval.$id)
+
+    // console.log("Courses data for uploadSemester():", Courses);
+
       for ( const course of Courses){
-        const {semesterName,coursecode}=course
+        //  console.log("Processing course:", course);
+        
+        const {semesters,coursecode}=course
 
-         for (const semesters of semesterName){
 
-          const semkeys=`${coursecode}-${semesters}`
+         for (const semester of semesters){
+
+          const semkeys=`${coursecode}_${semester}`
 
           if (!existingsemkeys.includes(semkeys)) {
             // console.log(`Semester Uploading: ${coursecode} - ${semesters}`);
@@ -98,9 +104,9 @@ export class Service {
 
             conf.appwriteDatabaseId,
             conf.appwriteSemesterCollectionId,
-             `${coursecode}-${semesters}`,
+            `${coursecode}_${semester}`,
             {
-                semestername:semesters,
+                semestername:semester,
                 courseid:coursecode,
 
             }

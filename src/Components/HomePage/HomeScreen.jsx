@@ -22,6 +22,7 @@ function HomeScreen() {
 
   const fetchAndUploadCourses = async () => { 
    
+    let updatedData=[];
 
    try {
 
@@ -50,9 +51,11 @@ function HomeScreen() {
     // setlistDocs(updatedData.documents);   
     }
 
-     const updatedData = (await Dbservice.getCourses()).documents
       // let finalData=updatedData.documents
      }
+
+           updatedData = (await Dbservice.getCourses()).documents
+
 
    try {
         await Dbservice.uploadSemester()
@@ -88,7 +91,7 @@ function HomeScreen() {
  };
   }, []);
 
- 
+
 
  return (
   <>
