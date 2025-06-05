@@ -74,6 +74,7 @@ export class Service {
 
 
 
+
  async uploadSemester (){
 
   try {
@@ -82,29 +83,33 @@ export class Service {
 
    const fetchedsemcodes = await this.getSemester()
 
-   const existingsemkeys=fetchedsemcodes.documents.map((semval)=>
-     semval.$id)
+   const existingsemkeys=new Set(fetchedsemcodes.documents.map((semval)=>
+     semval.$id))
 
-    // console.log("Courses data for uploadSemester():", Courses);
 
+  function generateSemId(coursecode,semester){
+            return `${coursecode}_${semester}`
+            .replace(/[^a-zA-Z0-9._-]/g, "")
+             .slice(0, 30);
+          }
+     
       for ( const course of Courses){
         //  console.log("Processing course:", course);
         
         const {semesters,coursecode}=course
-
-
+          
          for (const semester of semesters){
 
-          const semkeys=`${coursecode}_${semester}`
+          const semkeys=generateSemId(coursecode,semester)
 
-          if (!existingsemkeys.includes(semkeys)) {
+          if (!existingsemkeys.has(semkeys)) {
             // console.log(`Semester Uploading: ${coursecode} - ${semesters}`);
 
              const semresults= await this.databases.createDocument(
 
             conf.appwriteDatabaseId,
             conf.appwriteSemesterCollectionId,
-            `${coursecode}_${semester}`,
+            semkeys,
             {
                 semestername:semester,
                 courseid:coursecode,
@@ -124,6 +129,10 @@ export class Service {
   }
   
  }
+
+
+
+
 
 
 

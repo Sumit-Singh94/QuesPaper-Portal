@@ -22,7 +22,7 @@ function HomeScreen() {
 
   const fetchAndUploadCourses = async () => { 
    
-    let updatedData=[];
+    let updatedData=[]  
 
    try {
 
@@ -53,8 +53,7 @@ function HomeScreen() {
 
       // let finalData=updatedData.documents
      }
-
-           updatedData = (await Dbservice.getCourses()).documents
+        updatedData = (await Dbservice.getCourses()).documents
 
 
    try {
