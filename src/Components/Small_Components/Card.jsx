@@ -71,7 +71,9 @@ const StyledWrapper = styled.div`
 // ...existing code...
 
 export const Cardgrid = () => {
+
     const {listDocs} = useContext(courseContext);
+    console.log("docs are",listDocs)
 
     // Add error handling for empty or undefined listDocs
     if (!listDocs || listDocs.length === 0) {

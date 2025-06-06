@@ -89,12 +89,18 @@ export class Service {
 
   function generateSemId(coursecode,semester){
             return `${coursecode}_${semester}`
+            .replace(/\s+/g, "_") 
             .replace(/[^a-zA-Z0-9._-]/g, "")
-             .slice(0, 30);
+             .slice(0, 36);
           }
      
       for ( const course of Courses){
         //  console.log("Processing course:", course);
+
+            if (!course.semesters || !Array.isArray(course.semesters)) {
+        console.warn(`Course ${course.coursecode} missing or invalid semesters:`, course.semesters);
+        continue; // Skip this course instead of failing
+      }
         
         const {semesters,coursecode}=course
           
@@ -126,6 +132,7 @@ export class Service {
    
   } catch (error) {
      console.log("Error::uploadSemester::error", error);
+     throw error
   }
   
  }

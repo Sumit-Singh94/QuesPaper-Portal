@@ -35,6 +35,7 @@ function HomeScreen() {
     const existingcodes = fetchedData.documents.map((val) => val.coursecode)
   
       console.log("fetchedData data is :",fetchedData.documents)
+
     
      console.log("Starting upload process");
 
@@ -52,25 +53,30 @@ function HomeScreen() {
     }
 
       // let finalData=updatedData.documents
-     }
-        updatedData = (await Dbservice.getCourses()).documents
+     
 
 
    try {
         await Dbservice.uploadSemester()
+
     } 
     catch (semesterError) {
         console.log("Semester upload failed, but continuing:", semesterError);
     }
- 
+
+   const finalData=await Dbservice.getCourses()
+      // console.log("Data set in context:", finalData.documents)
+          
 
     if (IsMounted.current) {
-      setlistDocs(updatedData);
+      setlistDocs(finalData.documents);
+      console.log("Data set in context:", finalData.documents)
       setLoading(false);
+  
     }
 
   }
-   
+}
   
   catch (error) {
     console.log("Error::getDbcourses::error", error);
@@ -99,6 +105,7 @@ function HomeScreen() {
     {loading ? (
         <div className="flex justify-center items-center min-h-screen w-full">
         <Loader />
+        
         </div>
        
     ) : (
