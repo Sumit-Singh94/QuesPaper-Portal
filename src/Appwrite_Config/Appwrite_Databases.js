@@ -45,7 +45,7 @@ export class Service {
         }
       );
         if (!result) {
-            throw new Error(`Failed to create document for ${course.coursecode}`);
+            throw new Error(`Failed to create document for : ${course.coursecode}`);
           }
       results.push(result)
     }
