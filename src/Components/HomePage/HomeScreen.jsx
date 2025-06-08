@@ -71,7 +71,7 @@ function HomeScreen() {
     if (IsMounted.current) {
       setlistDocs(finalData.documents);
       console.log("Data set in context:", finalData.documents)
-      setLoading(false);
+      setLoading(false)
   
     }
 
@@ -81,7 +81,7 @@ function HomeScreen() {
   catch (error) {
     console.log("Error::getDbcourses::error", error);
      if (IsMounted.current) {
-     setLoading(false);
+     setLoading(false)
     }
    }
   }
@@ -92,7 +92,7 @@ function HomeScreen() {
   
 
   return () => {
-   IsMounted.current = false;
+   IsMounted.current = false
  };
   }, []);
 
