@@ -41,7 +41,7 @@ function HomeScreen() {
 
     const coursesToUpload = Courses.filter((courses) =>
      !existingcodes.includes(courses.coursecode)
-    );
+    )
 
 
     // const finalData = fetchedData.documents;
