@@ -21,8 +21,7 @@ function HomeScreen() {
   //completed with fetching courses from database and preventing uploading duplicate courses and displaying the courses.
 
   const fetchAndUploadCourses = async () => { 
-   
-    let updatedData=[]  
+ 
 
    try {
 
@@ -40,9 +39,7 @@ function HomeScreen() {
      console.log("Starting upload process");
 
     const coursesToUpload = Courses.filter((courses) =>
-     !existingcodes.includes(courses.coursecode)
-    )
-
+     !existingcodes.includes(courses.coursecode));
 
     // const finalData = fetchedData.documents;
 
