@@ -43,7 +43,7 @@ export class Service {
           coursename: course.coursename,
           coursecode: course.coursecode,
         }
-      );
+      )
         if (!result) {
             throw new Error(`Failed to create document for : ${course.coursecode}`);
           }
