@@ -10,7 +10,7 @@ function HomeScreen() {
   const {setlistDocs} = useContext(courseContext)
 
  const [loading, setLoading] = useState(true);
-//  const [Dbcoursecode, setDbCourseCode] = useState([]);
+
 
  let IsMounted = useRef(true);
 
