@@ -64,8 +64,8 @@ export class Service {
    const docs = await this.databases.listDocuments(
     conf.appwriteDatabaseId,
     conf.appwriteCoursesCollectionId
-   );
-   return docs;
+   )
+   return docs
   } catch (error) {
    console.log("Error::getcourses::error", error);
    throw error
