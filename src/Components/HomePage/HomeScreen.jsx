@@ -22,7 +22,7 @@ function HomeScreen() {
 
   const fetchAndUploadCourses = async () => { 
  
-
+ 
    try {
 
     if ( IsMounted.current) {
@@ -55,6 +55,7 @@ function HomeScreen() {
 
    try {
         await Dbservice.uploadSemester()
+      
 
     } 
     catch (semesterError) {
@@ -91,7 +92,7 @@ function HomeScreen() {
   return () => {
    IsMounted.current = false
  };
-  }, []);
+  }, [setlistDocs]);
 
 
 

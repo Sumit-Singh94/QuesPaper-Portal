@@ -63,7 +63,11 @@ export class Service {
   try {
    const docs = await this.databases.listDocuments(
     conf.appwriteDatabaseId,
-    conf.appwriteCoursesCollectionId
+    conf.appwriteCoursesCollectionId,
+    [
+      Query.limit(100),
+    ]
+   
    )
    return docs
   } catch (error) {
@@ -151,6 +155,9 @@ export class Service {
 
       conf.appwriteDatabaseId,
      conf.appwriteSemesterCollectionId,
+       [
+      Query.limit(200),
+    ],
 
    );
    return semdocs;
