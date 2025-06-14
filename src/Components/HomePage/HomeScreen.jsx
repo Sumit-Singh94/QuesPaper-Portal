@@ -12,18 +12,26 @@ function HomeScreen() {
 
 
  const { setlistDocs } = useContext(courseContext);
- const [loading, setLoading] = useState(true);
+//  const [loading, setLoading] = useState(true);
  let IsMounted = useRef(true)
 
 
- useQuery({
+ const {data:fetchedDataDocuments,isLoading:loading}=useQuery({
     queryKey:["fetchcourses"],
     queryFn: async ()=>{
        const fetchedData= await Dbservice.getCourses()
       const fetchedDataDocuments= fetchedData.documents
       return fetchedDataDocuments;
-    }
+    },
+
+   
+
+    
  })
+     
+
+
+
 
 
 
@@ -96,7 +104,7 @@ function HomeScreen() {
    ) : (
     <div>
      <h1 className="text-center">Please Select A Course To See Papers </h1>
-     <Cardgrid />
+     <Cardgrid Courses={fetchedDataDocuments}/>
     </div>
    )}
   </>
