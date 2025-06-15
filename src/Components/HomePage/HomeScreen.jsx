@@ -4,7 +4,7 @@ import { Courses } from "../index";
 import { Dbservice } from "../index";
 import { Card, Loader, Cardgrid } from "../index";
 import { courseContext } from "../Context";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 
 
@@ -26,11 +26,18 @@ function HomeScreen() {
     },   
  })
      
+
+
+
+
  useEffect(()=>{
    if (fetchedDataDocuments) {
       setlistDocs(fetchedDataDocuments)
    }
  },[fetchedDataDocuments,setlistDocs])
+
+
+
 
 
 
@@ -93,6 +100,12 @@ function HomeScreen() {
 //   return () => {
 //    IsMounted.current = false;
 //   };
+
+
+
+
+
+
 
  return (
   <>

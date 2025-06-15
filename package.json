@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.3",
     "@tanstack/react-query": "^5.80.7",
+    "@tanstack/react-query-devtools": "^5.80.7",
     "appwrite": "^17.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
