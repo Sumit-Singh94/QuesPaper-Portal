@@ -16,22 +16,21 @@ function HomeScreen() {
  let IsMounted = useRef(true)
 
 
+
  const {data:fetchedDataDocuments,isLoading:loading}=useQuery({
     queryKey:["fetchcourses"],
     queryFn: async ()=>{
        const fetchedData= await Dbservice.getCourses()
       const fetchedDataDocuments= fetchedData.documents
       return fetchedDataDocuments;
-    },
-
-   
-
-    
+    },   
  })
      
-
-
-
+ useEffect(()=>{
+   if (fetchedDataDocuments) {
+      setlistDocs(fetchedDataDocuments)
+   }
+ },[fetchedDataDocuments,setlistDocs])
 
 
 
@@ -97,16 +96,25 @@ function HomeScreen() {
 
  return (
   <>
+  <div>
    {loading ? (
     <div className="flex justify-center items-center min-h-screen w-full">
      <Loader />
     </div>
    ) : (
     <div>
-     <h1 className="text-center">Please Select A Course To See Papers </h1>
-     <Cardgrid Courses={fetchedDataDocuments}/>
+
+     {fetchedDataDocuments ? <div>
+      <p className="text-center text-4xl">Please Select A Course To See Papers</p> 
+        <Cardgrid />
+     </div> : <h1>something went wrong!!</h1>}
+    
     </div>
    )}
+
+   
+</div>
+   
   </>
  );
 }

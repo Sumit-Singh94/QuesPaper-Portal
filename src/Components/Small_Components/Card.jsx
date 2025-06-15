@@ -74,11 +74,9 @@ export const Cardgrid = () => {
 
     const {listDocs} = useContext(courseContext);
 
-        console.log("listDocs inside Cardgrid:", listDocs);
-
     // Add error handling for empty or undefined listDocs
     if (!listDocs || listDocs.length === 0) {
-        return <div>No courses available</div>;
+        return <div className='text-center text-2xl mt-6'>No courses available</div>;
     }
 
     return (
