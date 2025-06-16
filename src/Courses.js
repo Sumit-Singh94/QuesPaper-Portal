@@ -1,13 +1,6 @@
 
 
 const Courses = [
-  {
-    coursename: "bhailang",
-    coursecode: "bhailang",
-    semesters:["Semester 1", "Semester 2", "Semester 3", "Semester 4"]
-    
-  },
-
 
   {
     coursename: "BTECH",

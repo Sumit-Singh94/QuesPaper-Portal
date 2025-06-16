@@ -4,7 +4,7 @@ import { Courses } from "../index";
 import { Dbservice } from "../index";
 import { Card, Loader, Cardgrid } from "../index";
 import { courseContext } from "../Context";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 
 
@@ -27,7 +27,35 @@ function HomeScreen() {
  })
      
 
+   const coursesAndSemesterUploadMutation=useMutation({
+      mutationFn: async ()=>{
+         try {
+            const existingCourseCode=fetchedDataDocuments.map((val)=>(val.coursecode))
+            const coursesToUpload=Courses.filter((course)=>(!existingCourseCode.includes(course.coursecode)))
 
+            if (coursesToUpload.length>0) {
+               await Dbservice.uploadCourses(coursesToUpload)
+               await Dbservice.uploadSemester()
+         }
+               return coursesToUpload
+
+               
+         } catch (error) {
+            console.log("upload failed!! try again")
+         }
+      },
+
+      if (issuccess) {
+                  QueryClient.invalidateQuesries(['fetchcourses'])
+               }
+            
+   })
+
+   useEffect(()=>{
+         if (fetchedDataDocuments && !coursesAndSemesterUploadMutation.isSuccess) {
+      coursesAndSemesterUploadMutation.mutate();
+    }
+   },[fetchedDataDocuments])
 
 
  useEffect(()=>{
