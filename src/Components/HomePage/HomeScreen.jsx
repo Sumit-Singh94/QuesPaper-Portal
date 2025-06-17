@@ -38,8 +38,7 @@ function HomeScreen() {
                await Dbservice.uploadSemester()
          }
                return coursesToUpload
-
-               
+     
          } catch (error) {
             console.log("upload failed!! try again")
          }
@@ -52,7 +51,8 @@ function HomeScreen() {
    })
 
    useEffect(()=>{
-         if (fetchedDataDocuments && !coursesAndSemesterUploadMutation.isSuccess) {
+
+   if (fetchedDataDocuments && !coursesAndSemesterUploadMutation.isSuccess) {
       coursesAndSemesterUploadMutation.mutate();
     }
    },[fetchedDataDocuments])
