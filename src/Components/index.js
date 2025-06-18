@@ -6,7 +6,7 @@ import Dbservice from "../Appwrite_Config/Appwrite_Databases"
 import Header from "./Header/Header"
 import Footer from "./Footer/Footer"
 import Courses from "../Courses"
-import { Coursepage } from "./HomePage/Coursepage"
+import { Semesterpage } from "./HomePage/Semesterpage"
 
 
 export {
@@ -18,5 +18,5 @@ export {
     Courses,
     Header,
     Footer,
-    Coursepage,
+    Semesterpage,
 }
