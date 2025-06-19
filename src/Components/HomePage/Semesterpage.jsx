@@ -1,6 +1,5 @@
 
 import { useParams } from 'react-router-dom'
-import Courses from '../../Courses';
 
 
 export function Semesterpage() {
