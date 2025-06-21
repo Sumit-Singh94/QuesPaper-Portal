@@ -12,7 +12,8 @@ export function Semesterpage() {
     const Iscodes=Courses.find((course)=>(  coursecode === course.coursecode))
 
     if (Iscodes) {
-    const   SemesterArray= Iscodes.semesters
+
+    const SemesterArray= Iscodes.semesters
 
     return (
 

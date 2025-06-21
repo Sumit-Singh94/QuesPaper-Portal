@@ -5,70 +5,107 @@ import { Link, Navigate } from 'react-router-dom';
 import { courseContext } from '../Context';
 
 
-
 export const Card = ({course}) => {
-
-
   return (
     <StyledWrapper>
-    <Link to={`/course/${course.coursecode}`}>
-      <div className="card text-center">
-        <div className="card-details">
-          <p className="text-title">{course.coursename}</p>
-          <p className="text-body">Click Here To See Papers</p>
+       <Link to={`/course/${course.coursecode}`}> </Link>
+      <div className="card">
+        <div className="content">
+          <p className="heading">Card Hover Effect
+          </p><p className="para">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+            laboriosam at voluptas minus culpa deserunt delectus sapiente
+            inventore pariatur
+          </p>
+          <button className="btn">Read more</button>
         </div>
-      </div>  
-      </Link>
+      </div>
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
   .card {
-   width: 190px;
-   height: 254px;
-   border-radius: 20px;
-   background: #f5f5f5;
-   position: relative;
-   padding: 1.8rem;
-   border: 2px solid #c3c6ce;
-   transition: 0.5s ease-out;
-   overflow: visible;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
   }
 
-  .card-details {
-   color: black;
-   height: 100%;
-   gap: .5em;
-   display: grid;
-   place-content: center;
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    color: #e8e8e8;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
   }
 
-
-  .text-body {
-   color: rgb(134, 134, 134);
+  .content .heading {
+    font-weight: 700;
+    font-size: 32px;
   }
 
-  /*Text*/
-  .text-title {
-   font-size: 1.5em;
-   font-weight: bold;
+  .content .para {
+    line-height: 1.5;
   }
 
-  /*Hover*/
+  .content .btn {
+    color: #e8e8e8;
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  .card:hover::before {
+    height: 100%;
+  }
+
   .card:hover {
-   border-color: #008bf8;
-   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: none;
   }
 
-  .card:hover .card-button {
-   transform: translate(-50%, 50%);
-   opacity: 1;
+  .card:hover .btn {
+    color: #212121;
+    background: #e8e8e8;
+  }
+
+  .content .btn:hover {
+    outline: 2px solid #e8e8e8;
+    background: transparent;
+    color: #e8e8e8;
+  }
+
+  .content .btn:active {
+    box-shadow: none;
   }`;
 
 
 
-// ...existing code...
+
 
 export const Cardgrid = () => {
 
