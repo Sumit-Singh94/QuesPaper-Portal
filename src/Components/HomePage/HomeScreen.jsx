@@ -146,7 +146,6 @@ function HomeScreen() {
     <div>
 
      {fetchedDataDocuments ? <div>
-      <p className="text-center text-4xl">Please Select A Course To See Papers</p> 
         <Cardgrid />
      </div> : <h1>something went wrong!!</h1>}
     
