@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Courses from '../../Courses';
 import { Link, useNavigate } from 'react-router-dom';
 import { courseContext } from '../Context';
 
@@ -12,7 +11,7 @@ const SectionHeader = ({ title, subtitle }) => (
 );
 
 export const Card = ({course}) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
   
     const handleCardClick = () => {
         navigate(`/course/${course.coursecode}`);
