@@ -66,11 +66,6 @@ function HomeScreen() {
 
 
 
-
-
-
-
-
 //   const fetchAndUploadCourses = async () => {
 //    try {
 //     if (IsMounted.current) {
@@ -128,8 +123,6 @@ function HomeScreen() {
 //   return () => {
 //    IsMounted.current = false;
 //   };
-
-
 
 
 
