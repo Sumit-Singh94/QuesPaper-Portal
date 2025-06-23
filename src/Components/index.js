@@ -5,7 +5,7 @@ import HomeScreen from "./HomePage/HomeScreen"
 import Dbservice from "../Appwrite_Config/Appwrite_Databases"
 import Courses from "../Courses"
 import { Header } from "./Header/Header"
-import Footer from "./Footer/Footer"
+import {Footer} from "./Footer/Footer"
 import { Semesterpage } from "./HomePage/Semesterpage"
 import { SemCard } from "./Small_Components/SemesterCard"
 
