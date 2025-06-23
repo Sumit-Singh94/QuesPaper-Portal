@@ -1,7 +1,6 @@
 
 import { useParams } from 'react-router-dom'
 import {Courses} from '../index'
-import HoverSemCards from '../Small_Components/SemesterCard'
 import {SemCard} from "../index"
 
 export function Semesterpage() {
