@@ -43,7 +43,7 @@ export const Footer = () => {
 
         <div className="footer_bottom">
           <div className="footer_bottom_content">
-            <p>&copy; 2025 Copyrights Reserved. Made with ❤️ for students</p>
+            <p>&copy; 2025 All Copyrights Reserved. Made with ❤️ for students</p>
             <div className="social_links">
               <a href="#" className="social_link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
