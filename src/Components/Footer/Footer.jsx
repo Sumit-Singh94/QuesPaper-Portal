@@ -36,7 +36,14 @@ export const Footer = () => {
               <h4>Support</h4>
               <a href="#help">Help Center</a>
               <a href="#contact">Contact Us</a>
-              <a href="#feedback">Feedback</a>
+              {/* <a href="#feedback">Feedback</a> */}
+              <button
+            className="footer-feedback-btn"
+            style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem'}}
+            onClick={() => setShowFeedback(true)}
+          >
+            Feedback
+          </button>
             </div>
           </div>
         </div>
