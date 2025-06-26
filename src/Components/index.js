@@ -8,6 +8,7 @@ import { Header } from "./Header/Header"
 import {Footer} from "./Footer/Footer"
 import { Semesterpage } from "./HomePage/Semesterpage"
 import { SemCard } from "./Small_Components/SemesterCard"
+import { Form } from "./Small_Components/ContactUSForm"
 
 export {
     Loader,
@@ -20,4 +21,5 @@ export {
     Footer,
     Semesterpage,
     SemCard,
+    Form,
 }

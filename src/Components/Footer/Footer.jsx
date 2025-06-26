@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Form } from '../Small_Components/ContactUSForm';
 
 export const Footer = () => {
+
+  const [showFeedback,setShowFeedback]=useState(false)
 
   const {coursecode} =useParams();
   const navigate = useNavigate();
@@ -35,11 +39,17 @@ export const Footer = () => {
             <div className="link_group">
               <h4>Support</h4>
               <a href="#help">Help Center</a>
-              <a href="#contact">Contact Us</a>
-              {/* <a href="#feedback">Feedback</a> */}
+                <button
+            className="footer-feedback-btn"
+            style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left'}}
+            onClick={() => setShowFeedback(true)}
+          >
+            Contact US
+          </button>
+
               <button
             className="footer-feedback-btn"
-            style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem'}}
+            style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left'}}
             onClick={() => setShowFeedback(true)}
           >
             Feedback
@@ -51,20 +61,27 @@ export const Footer = () => {
         <div className="footer_bottom">
           <div className="footer_bottom_content">
             <p>&copy; 2025 All Copyrights Reserved. Made with ❤️ for students</p>
-            <div className="social_links">
-              <a href="#" className="social_link">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                </svg>
-              </a>
-              <a href="#" className="social_link">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.111.222.082.343-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.624 0 11.99-5.367 11.99-11.989C24.007 5.367 18.641.001 12.017.001z"/>
-                </svg>
-              </a>
-            </div>
+
           </div>
         </div>
+
+              
+    {showFeedback && (
+          <div className="fixed inset-0 w-screen h-screen bg-transparent flex items-center justify-center z-[1000] modal-container">
+            <div className="relative bg-white rounded-xl shadow-2xl p-0 modal-content">
+              <button
+                onClick={() => setShowFeedback(false)}
+                className="absolute top-2 right-2 bg-transparent border-none text-2xl text-gray-500 cursor-pointer hover:text-gray-700 z-10"
+                aria-label="Close"
+              >     
+                &times;
+              </button>
+              <Form />
+            </div>
+          </div>
+        )}
+              
+
       </footer>
     </StyledWrapper>
   );
@@ -76,7 +93,12 @@ const StyledWrapper = styled.div`
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 4rem;
   }
-
+  .feedback-form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
   .footer_content {
     max-width: 1200px;
     margin: 0 auto;
@@ -201,6 +223,50 @@ const StyledWrapper = styled.div`
   .social_link:hover svg {
     color: white;
   }
+ ${'' /* modal edit */}
+
+  .modal-container {
+    padding: 1rem;
+  }
+  
+  .modal-content {
+    width: 30rem;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 768px) {
+    .modal-content {
+      max-width: 95vw;
+      max-height: 85vh;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .modal-container {
+      padding: 0.5rem;
+    }
+    
+    .modal-content {
+      max-width: 100vw;
+      max-height: 90vh;
+      border-radius: 0.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .modal-content {
+      max-width: 700px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .modal-content {
+      max-width: 800px;
+    }
+  }
+
 
   /* Responsive Design */
   @media (max-width: 768px) {
