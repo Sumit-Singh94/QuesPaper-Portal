@@ -71,7 +71,7 @@ export const Footer = () => {
             <div className="relative bg-white rounded-xl shadow-2xl p-0 modal-content">
               <button
                 onClick={() => setShowFeedback(false)}
-                className="absolute top-2 right-2 bg-transparent border-none text-2xl text-gray-500 cursor-pointer hover:text-gray-700 z-10"
+                className="absolute top-2 right-2 bg-transparent border-none text-2xl text-white cursor-pointer hover:text-gray-700 z-10"
                 aria-label="Close"
               >     
                 &times;
