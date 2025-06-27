@@ -6,9 +6,9 @@ import { Form } from '../Small_Components/ContactUSForm';
 
 export const Footer = () => {
 
-  const [showFeedback,setShowFeedback]=useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
 
-  const {coursecode} =useParams();
+  const { coursecode } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -31,29 +31,29 @@ export const Footer = () => {
             <div className="link_group">
               <h4>Quick Links</h4>
               {/* < >Courses</a> */}
-             <Link to="/"> Courses </Link>
+              <Link to="/"> Courses </Link>
               <a href="#papers">Question Papers</a>
               <a href="#resources">Resources</a>
             </div>
-            
+
             <div className="link_group">
               <h4>Support</h4>
               <a href="#help">Help Center</a>
-                <button
-            className="footer-feedback-btn"
-            style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left'}}
-            onClick={() => setShowFeedback(true)}
-          >
-            Contact US
-          </button>
+              <button
+                className="footer-feedback-btn"
+                style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left' }}
+                onClick={() => setShowFeedback(true)}
+              >
+                Contact US
+              </button>
 
               <button
-            className="footer-feedback-btn"
-            style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left'}}
-            onClick={() => setShowFeedback(true)}
-          >
-            Feedback
-          </button>
+                className="footer-feedback-btn"
+                style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left' }}
+                onClick={() => setShowFeedback(true)}
+              >
+                Feedback
+              </button>
             </div>
           </div>
         </div>
@@ -65,22 +65,21 @@ export const Footer = () => {
           </div>
         </div>
 
-              
-    {showFeedback && (
+
+        {showFeedback && (
           <div className="fixed inset-0 w-screen h-screen bg-transparent flex items-center justify-center z-[1000] modal-container">
             <div className="relative bg-white rounded-xl shadow-2xl p-0 modal-content">
               <button
                 onClick={() => setShowFeedback(false)}
                 className="absolute top-2 right-2 bg-transparent border-none text-2xl text-white cursor-pointer hover:text-gray-700 z-10"
                 aria-label="Close"
-              >     
+              >
                 &times;
               </button>
               <Form />
             </div>
           </div>
         )}
-              
 
       </footer>
     </StyledWrapper>
