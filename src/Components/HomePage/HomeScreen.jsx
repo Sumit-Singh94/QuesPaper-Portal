@@ -6,148 +6,134 @@ import { Card, Loader, Cardgrid } from "../index";
 import { courseContext } from "../Context";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
-
-
 function HomeScreen() {
-
-
  const { setlistDocs } = useContext(courseContext);
-//  const [loading, setLoading] = useState(true);
- let IsMounted = useRef(true)
+ //  const [loading, setLoading] = useState(true);
+ let IsMounted = useRef(true);
 
+ const { data: fetchedDataDocuments, isLoading: loading } = useQuery({
+  queryKey: ["fetchcourses"],
+  queryFn: async () => {
+   const fetchedData = await Dbservice.getCourses();
+   const fetchedDataDocuments = fetchedData.documents;
+   return fetchedDataDocuments;
+  },
+ });
 
+ const coursesAndSemesterUploadMutation = useMutation({
+  mutationFn: async () => {
+   try {
+    const existingCourseCode = fetchedDataDocuments.map(
+     (val) => val.coursecode
+    );
+    const coursesToUpload = Courses.filter(
+     (course) => !existingCourseCode.includes(course.coursecode)
+    );
 
- const {data:fetchedDataDocuments,isLoading:loading}=useQuery({
-    queryKey:["fetchcourses"],
-    queryFn: async ()=>{
-       const fetchedData= await Dbservice.getCourses()
-      const fetchedDataDocuments= fetchedData.documents
-      return fetchedDataDocuments;
-    },   
- })
-     
-
-   const coursesAndSemesterUploadMutation=useMutation({
-      mutationFn: async ()=>{
-         try {
-            const existingCourseCode=fetchedDataDocuments.map((val)=>(val.coursecode))
-            const coursesToUpload=Courses.filter((course)=>(!existingCourseCode.includes(course.coursecode)))
-
-            if (coursesToUpload.length>0) {
-               await Dbservice.uploadCourses(coursesToUpload)
-               await Dbservice.uploadSemester()
-         }
-               return coursesToUpload
-     
-         } catch (error) {
-            console.log("upload failed!! try again")
-         }
-      },
-
-      if (issuccess) {
-                  QueryClient.invalidateQuesries(['fetchcourses'])
-               }
-            
-   })
-
-   useEffect(()=>{
-
-   if (fetchedDataDocuments && !coursesAndSemesterUploadMutation.isSuccess) {
-      coursesAndSemesterUploadMutation.mutate();
+    if (coursesToUpload.length > 0) {
+     await Dbservice.uploadCourses(coursesToUpload);
+     await Dbservice.uploadSemester();
     }
-   },[fetchedDataDocuments])
-
-
- useEffect(()=>{
-   if (fetchedDataDocuments) {
-      setlistDocs(fetchedDataDocuments)
+    return coursesToUpload;
+   } catch (error) {
+    console.log("upload failed!! try again");
    }
- },[fetchedDataDocuments,setlistDocs])
+  },
 
+  if(issuccess) {
+   QueryClient.invalidateQuesries(["fetchcourses"]);
+  },
+ });
 
+ useEffect(() => {
+  if (fetchedDataDocuments && !coursesAndSemesterUploadMutation.isSuccess) {
+   coursesAndSemesterUploadMutation.mutate();
+  }
+ }, [fetchedDataDocuments]);
 
-//   const fetchAndUploadCourses = async () => {
-//    try {
-//     if (IsMounted.current) {
-//      console.log("started fetching and uploading process!!");
+ useEffect(() => {
+  if (fetchedDataDocuments) {
+   setlistDocs(fetchedDataDocuments);
+  }
+ }, [fetchedDataDocuments, setlistDocs]);
 
-//      const fetchedData = await Dbservice.getCourses();
-//      setlistDocs(fetchedData.documents)
-//      const existingcodes = fetchedData.documents.map((val) => val.coursecode);
+ //   const fetchAndUploadCourses = async () => {
+ //    try {
+ //     if (IsMounted.current) {
+ //      console.log("started fetching and uploading process!!");
 
-//      console.log("fetchedData data is :", fetchedData.documents);
+ //      const fetchedData = await Dbservice.getCourses();
+ //      setlistDocs(fetchedData.documents)
+ //      const existingcodes = fetchedData.documents.map((val) => val.coursecode);
 
-//      console.log("Starting upload process");
+ //      console.log("fetchedData data is :", fetchedData.documents);
 
-//      const coursesToUpload = Courses.filter(
-//       (courses) => !existingcodes.includes(courses.coursecode)
-//      );
+ //      console.log("Starting upload process");
 
-//      // const finalData = fetchedData.documents;
+ //      const coursesToUpload = Courses.filter(
+ //       (courses) => !existingcodes.includes(courses.coursecode)
+ //      );
 
-//      if (coursesToUpload.length > 0) {
-//       await Dbservice.uploadCourses(coursesToUpload);
-//       // setlistDocs(updatedData.documents);
-//      }
+ //      // const finalData = fetchedData.documents;
 
-//      // let finalData=updatedData.documents
+ //      if (coursesToUpload.length > 0) {
+ //       await Dbservice.uploadCourses(coursesToUpload);
+ //       // setlistDocs(updatedData.documents);
+ //      }
 
-//      const finalData = await Dbservice.getCourses();
+ //      // let finalData=updatedData.documents
 
-//      if (IsMounted.current) {
-//       setlistDocs(finalData.documents);
+ //      const finalData = await Dbservice.getCourses();
 
-//       try {
-//        await Dbservice.uploadSemester();
-//       } catch (semesterError) {
-//        console.warn("Semester upload failed:", semesterError);
-//       }
+ //      if (IsMounted.current) {
+ //       setlistDocs(finalData.documents);
 
-//       setLoading(false)
-//      }
+ //       try {
+ //        await Dbservice.uploadSemester();
+ //       } catch (semesterError) {
+ //        console.warn("Semester upload failed:", semesterError);
+ //       }
 
-//      if (IsMounted.current) {
-//       setLoading(false);
-//      }
-//     }
-//    } catch (error) {
-//     console.log("Error::getDbcourses::error", error);
-//     if (IsMounted.current) {
-//      setLoading(false);
-//     }
-//    }
-//   };
+ //       setLoading(false)
+ //      }
 
-//   fetchAndUploadCourses();
+ //      if (IsMounted.current) {
+ //       setLoading(false);
+ //      }
+ //     }
+ //    } catch (error) {
+ //     console.log("Error::getDbcourses::error", error);
+ //     if (IsMounted.current) {
+ //      setLoading(false);
+ //     }
+ //    }
+ //   };
 
-//   return () => {
-//    IsMounted.current = false;
-//   };
+ //   fetchAndUploadCourses();
 
-
-
-
+ //   return () => {
+ //    IsMounted.current = false;
+ //   };
 
  return (
   <>
-  <div>
-   {loading ? (
-    <div className="flex justify-center items-center min-h-screen w-full">
-     <Loader />
-    </div>
-   ) : (
-    <div>
-
-     {fetchedDataDocuments ? <div>
+   <div>
+    {loading ? (
+     <div className="flex justify-center items-center min-h-screen w-full">
+      <Loader />
+     </div>
+    ) : (
+     <div>
+      {fetchedDataDocuments ? (
+       <div>
         <Cardgrid />
-     </div> : <h1>something went wrong!!</h1>}
-    
-    </div>
-   )}
-
-   
-</div>
-   
+       </div>
+      ) : (
+       <h1>something went wrong!!</h1>
+      )}
+     </div>
+    )}
+   </div>
   </>
  );
 }
