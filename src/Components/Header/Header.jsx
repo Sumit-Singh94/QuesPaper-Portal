@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
 export const Header = () => {
- const { coursecode } = useParams();
+ const { coursecode } = useParams()
 
  return (
   <div className="bg-white min-h-[20vh] flex items-center">
