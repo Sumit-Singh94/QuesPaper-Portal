@@ -9,6 +9,7 @@ import {Footer} from "./Footer/Footer"
 import { Semesterpage } from "./HomePage/Semesterpage"
 import { SemCard } from "./Small_Components/SemesterCard"
 import { Form } from "./Small_Components/ContactUSForm"
+import { Paperspage } from "./HomePage/Paperspage"
 
 export {
     Loader,
@@ -22,4 +23,5 @@ export {
     Semesterpage,
     SemCard,
     Form,
+    Paperspage,
 }

@@ -1,7 +1,17 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const SemCard = ({title,subtitle}) => {
+  const navigate=useNavigate()
+  const {coursecode}=useParams()
+
+  const handleOnClick=()=>(
+    navigate(`/course/${coursecode}/semester/${title}`)
+  )
+
   return (
+
+
     <StyledWrapper>
       <div className="section_our_solution">
         <div className="row">
@@ -25,7 +35,7 @@ export const SemCard = ({title,subtitle}) => {
                     <p>
                     {subtitle}
                     </p>
-                    <button className="read_more_btn" type="button">View Papers</button>
+                    <button onClick={handleOnClick} className="read_more_btn" type="button">View Papers</button>
                   </div>
                 </div>
               </div>

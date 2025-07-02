@@ -9,6 +9,7 @@ import CourseContextProvider from "./Components/Context/ContextProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Semesterpage } from "./Components/HomePage/Semesterpage.jsx";
+import { Paperspage } from "./Components/index.js";
 
 
   const queryClient= new QueryClient()
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
    {
     path: "/course/:coursecode",
     element: <Semesterpage />
+   },
+   {
+    path: "/course/:coursecode/semester/:semester",
+    element:<Paperspage/>
    }
   ]
  }

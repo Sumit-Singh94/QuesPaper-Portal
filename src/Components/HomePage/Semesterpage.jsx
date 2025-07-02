@@ -24,7 +24,7 @@ export function Semesterpage() {
                       title={sem}
                       subtitle={"Access previous year question papers"}
 
-                      />
+               />
             ))
           }
     

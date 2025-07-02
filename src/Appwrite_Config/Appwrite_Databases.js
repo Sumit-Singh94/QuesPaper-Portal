@@ -144,9 +144,6 @@ export class Service {
 
 
 
-
-
-
   async getSemester() {
 
     try {
@@ -167,6 +164,25 @@ export class Service {
       throw error
     }
   }
+
+
+
+async getPapers(coursecode, semester) {
+  return await this.databases.listDocuments(
+    conf.appwriteDatabaseId,
+    conf.appwritePapersCollectionId,
+    [
+      Query.equal("coursecode", coursecode),
+      Query.equal("semester", semester),
+      Query.limit(10000)
+    ]
+  );
+}
+
+
+
+
+
 }
 
 const Dbservice = new Service();
