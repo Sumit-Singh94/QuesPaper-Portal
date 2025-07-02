@@ -22,7 +22,7 @@ async function deleteAllFiles() {
     let totalDeleted = 0;
     let cursor = undefined;
     while (true) {
-      const queries = [Query.limit(200)];
+      const queries = [Query.limit(3000)];
       if (cursor) queries.push(Query.cursorAfter(cursor));
       const fileList = await storage.listFiles(bucketId, queries);
       if (!fileList.files.length) break;

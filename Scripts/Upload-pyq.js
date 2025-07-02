@@ -1,16 +1,14 @@
-// scripts/upload-pyq.js
 import { Client, Databases, Storage, ID } from 'node-appwrite';
 import fs from 'fs-extra';
 import path from 'path';
 import conf from './conf.node.js';
 
-
-// Configuration   
+// Configuration
 const config = {
   // Appwrite Configuration
   endpoint: conf.appwriteUrl, 
   projectId: conf.appwriteProjectId, 
-  apiKey: conf.appwriteApiKey, 
+  apiKey: 'standard_2f7d1476df8571d7b308116eb93cd1409af0da22dfc30e18ef71453811bce5784a13c0fd31ee59c1ce37eaeaf65d9d9a16e4f7afadc11ecdc1b99f457fd5d5e583284604494b6584d6c47b3413f74abe149db78b38f925bf4d388dfe026171f3b3bcdc3e24660322b7415404799c077282c71042f80939496207c76994105b88 ', 
   databaseId: conf.appwriteDatabaseId,
   pyqCollectionId: conf.appwritePapersCollectionId, 
   storageBucketId: conf.appwriteBucketId,
@@ -107,8 +105,43 @@ async function readFolderStructure(folderPath) {
   return files;
 }
 
-// Function to upload file to Appwrite Storage
-async function uploadToStorage(filepath, filename) {
+
+function generateStorageId(fileData) {
+  const cleanFilename = fileData.filename
+    .replace(/\.pdf$/i, '')  // Remove .pdf extension
+    .replace(/[^a-zA-Z0-9]/g, '_')  // Replace special chars with underscore
+    .toLowerCase();
+  
+  const id = `${fileData.coursecode}_${fileData.semester}_${cleanFilename}`.toLowerCase();
+  
+  // Ensure ID doesn't exceed Appwrite's limit (36 chars)
+  if (id.length > 36) {
+    return id.substring(0, 36);
+  }
+  
+  return id;
+}
+
+function generateDatabaseId(fileData) {
+  // Create simple ID from file metadata
+  const cleanFilename = fileData.filename
+    .replace(/\.pdf$/i, '')  // Remove .pdf extension
+    .replace(/[^a-zA-Z0-9]/g, '_')  // Replace special chars with underscore
+    .toLowerCase();
+  
+  const id = `doc_${fileData.coursecode}_${fileData.semester}_${cleanFilename}`.toLowerCase();
+  
+  // Ensure ID doesn't exceed Appwrite's limit (36 chars)
+  if (id.length > 36) {
+    return id.substring(0, 36);
+  }
+  
+  return id;
+}
+
+
+
+async function uploadToStorage(filepath, filename, fileData) {
   console.log(`📤 Preparing to upload: ${filename}`);
 
   if (!fs.existsSync(filepath)) {
@@ -120,24 +153,34 @@ async function uploadToStorage(filepath, filename) {
     throw new Error(`❌ Invalid or empty file: ${filepath}`);
   }
 
-  console.log(`📊 File size: ${(stats.size / 1024 / 1024).toFixed(2)} MB`);
+
+  // Generate simple Predictable ID
+  const fileId = generateStorageId(fileData);
 
   try {
-    // Create a readable stream - this often works better than buffer
-    const fileStream = fs.createReadStream(filepath);
-    
-    // Alternative approach: Convert stream to buffer if needed
+    // Check if file already exists
+    try {
+      const existingFile = await storage.getFile(config.storageBucketId, fileId);
+      console.log(`⏭️  File already exists in storage: ${filename}`);
+      return existingFile;
+    } catch (err) {
+      // File doesn't exist, proceed with upload
+      if (err.code !== 404) {
+        throw err;
+      }
+    }
+
     const fileBuffer = await fs.readFile(filepath);
     
-    // Create File object (works better with some versions)
     const file = new File([fileBuffer], filename, { 
       type: 'application/pdf',
       lastModified: stats.mtime.getTime()
     });
     
+    // Use simple Predictable ID
     const result = await storage.createFile(
       config.storageBucketId,
-      ID.unique(),
+      fileId,
       file
     );
     
@@ -145,39 +188,40 @@ async function uploadToStorage(filepath, filename) {
     return result;
   } catch (err) {
     console.error(`❌ Upload failed for ${filename}:`, err.message);
-    console.error('Full error:', err);
-    
-    // Try alternative method if first fails
-    try {
-      console.log('🔄 Trying alternative upload method...');
-      const fileBuffer = await fs.readFile(filepath);
-      
-      const result = await storage.createFile(
-        config.storageBucketId,
-        ID.unique(),
-        fileBuffer,
-        filename,
-        'application/pdf'
-      );
-      
-      console.log(`✅ Successfully uploaded with alternative method: ${filename}`);
-      return result;
-    } catch (altErr) {
-      console.error(`❌ Alternative upload also failed:`, altErr.message);
-      throw altErr;
-    }
+    throw err;
   }
 }
 
+
 // Function to create database entry
 async function createDatabaseEntry(fileData, storageFile) {
+  // Generate simple Predictable database ID
+  const docId = generateDatabaseId(fileData);
+  
   try {
+    // Check if document already exists
+    try {
+      const existingDoc = await databases.getDocument(
+        config.databaseId,
+        config.pyqCollectionId,
+        docId
+      );
+      console.log(`⏭️  Database entry already exists for ${fileData.filename}`);
+      return existingDoc;
+    } catch (err) {
+      // Document doesn't exist, proceed with creation
+      if (err.code !== 404) {
+        throw err;
+      }
+    }
+
     const fileUrl = `${config.endpoint}/storage/buckets/${config.storageBucketId}/files/${storageFile.$id}/view?project=${config.projectId}`;
     
+    // Use simple Predictable ID
     const document = await databases.createDocument(
       config.databaseId,
       config.pyqCollectionId,
-      ID.unique(),
+      docId,
       {
         coursecode: fileData.coursecode,
         semester: fileData.semester,
@@ -198,6 +242,8 @@ async function createDatabaseEntry(fileData, storageFile) {
     throw error;
   }
 }
+
+
 
 // Main function to process all files
 async function processAllFiles() {
@@ -227,7 +273,7 @@ async function processAllFiles() {
       
       try {
         // Upload to storage
-        const storageFile = await uploadToStorage(fileData.filepath, fileData.filename);
+        const storageFile = await uploadToStorage(fileData.filepath, fileData.filename,fileData);
         
         // Create database entry
         await createDatabaseEntry(fileData, storageFile);
