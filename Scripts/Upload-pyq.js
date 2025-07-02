@@ -8,7 +8,7 @@ const config = {
   // Appwrite Configuration
   endpoint: conf.appwriteUrl, 
   projectId: conf.appwriteProjectId, 
-  apiKey: 'standard_2f7d1476df8571d7b308116eb93cd1409af0da22dfc30e18ef71453811bce5784a13c0fd31ee59c1ce37eaeaf65d9d9a16e4f7afadc11ecdc1b99f457fd5d5e583284604494b6584d6c47b3413f74abe149db78b38f925bf4d388dfe026171f3b3bcdc3e24660322b7415404799c077282c71042f80939496207c76994105b88 ', 
+  apiKey: conf.appwriteApiKey,
   databaseId: conf.appwriteDatabaseId,
   pyqCollectionId: conf.appwritePapersCollectionId, 
   storageBucketId: conf.appwriteBucketId,
