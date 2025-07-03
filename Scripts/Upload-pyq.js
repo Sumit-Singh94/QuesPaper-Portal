@@ -84,8 +84,8 @@ async function readFolderStructure(folderPath) {
                 const parsed = parseFilename(pdfFile);
                 
                 files.push({
-                  coursecode: course,
-                  semester: semester,
+                  coursecode: course.toLowerCase(),
+                  semester: semester.toLowerCase(),
                   filename: pdfFile,
                   filepath: filePath,
                   subject: parsed.subject,

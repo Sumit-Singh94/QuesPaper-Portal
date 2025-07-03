@@ -23,19 +23,7 @@ const { data: papers, isLoading, isError } = useQuery({
 
 
 //  Function to construct proper file URL
-    const getFileUrl = (paper) => {
-        // Use the file_url if available (from your upload script)
-        if (paper.file_url) {
-            return paper.file_url;
-        }
-        
-        // Fallback: construct URL manually using file_id
-        if (paper.file_id) {
-            return `${conf.appwriteUrl}/storage/buckets/${conf.appwriteBucketId}/files/${paper.file_id}/view?project=${conf.appwriteProjectId}`;
-        }
-        
-        return null;
-    };
+
 
 
   return (
@@ -61,8 +49,7 @@ const { data: papers, isLoading, isError } = useQuery({
               Found {papers.length} papers
             </p>
             <div className="grid gap-4">
-              {papers.map(paper => {
-                const fileUrl = getFileUrl(paper)
+              {(Array.isArray(papers) ? papers : []).map(paper => {
 
                 return (
                   <div key={paper.$id} className="border p-4 rounded shadow-md bg-white">
