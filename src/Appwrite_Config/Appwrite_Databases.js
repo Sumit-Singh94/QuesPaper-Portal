@@ -1,6 +1,7 @@
 import { Client, Databases, ID, Query } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
+import { Paperspage } from "../Components";
 
 
 export class Service {
@@ -168,20 +169,20 @@ export class Service {
 
 
 async getPapers(coursecode, semester) {
-  return await this.databases.listDocuments(
+  // Normalize to lowercase for consistency with upload script
+  const normalizedCourse = coursecode.toLowerCase();
+  const normalizedSemester = semester.toLowerCase();
+  const response = await this.databases.listDocuments(
     conf.appwriteDatabaseId,
     conf.appwritePapersCollectionId,
     [
-      Query.equal("coursecode", coursecode),
-      Query.equal("semester", semester),
+      Query.equal("coursecode", normalizedCourse),
+      Query.equal("semester", normalizedSemester),
       Query.limit(10000)
     ]
   );
+  return response;
 }
-
-
-
-
 
 }
 

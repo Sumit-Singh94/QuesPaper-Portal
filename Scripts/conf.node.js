@@ -11,7 +11,6 @@ const conf = {
   appwriteCoursesCollectionId: process.env.VITE_APPWRITE_COURSES_COLLECTION_ID,
   appwriteBucketId: process.env.VITE_APPWRITE_BUCKET_ID,
   appwriteApiKey : process.env.VITE_APPWRITE_API_KEY,
-  pyqFolderPath:process.env.Local_pyqFolderPath
 };
 
 export default conf;

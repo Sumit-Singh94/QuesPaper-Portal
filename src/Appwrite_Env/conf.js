@@ -8,6 +8,8 @@ const conf = {
     appwriteSemesterCollectionId: String(import.meta.env.VITE_APPWRITE_SEMESTER_COLLECTION_ID),
     appwriteCoursesCollectionId: String(import.meta.env.VITE_APPWRITE_COURSES_COLLECTION_ID),
     appwriteBucketId: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
+    appwriteApiKey:String(import.meta.env.VITE_APPWRITE_API_KEY),
+
 }
 
 export default conf;
