@@ -22,7 +22,6 @@ export const Card = ({ course }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        console.log("Card clicked - navigating to:", `/course/${course.coursecode}`);
         navigate(`/course/${course.coursecode}`);
     };
 

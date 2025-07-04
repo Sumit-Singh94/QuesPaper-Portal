@@ -1,22 +1,32 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SemCard } from "../index";
 import { Courses } from '../index';
 import { motion } from "framer-motion";
 
 export function Semesterpage() {
   const { coursecode } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentCourse, setCurrentCourse] = useState(null);
   
   // Find the course from the Courses data
-  const currentCourse = Courses.find((course) => course.coursecode === coursecode);
-  
-  // Debug logging
   useEffect(() => {
-    console.log("Semesterpage mounted with coursecode:", coursecode);
-    console.log("Current course found:", currentCourse);
-    console.log("Available courses:", Courses.map(c => c.coursecode));
-    console.log("Course semesters:", currentCourse?.semesters);
-  }, [coursecode, currentCourse]);
+    const foundCourse = Courses.find((course) => course.coursecode === coursecode);
+    setCurrentCourse(foundCourse);
+    setIsLoading(false);
+  }, [coursecode]);
+  
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">Loading course information...</p>
+        </div>
+      </div>
+    );
+  }
   
   // If course not found, show error
   if (!currentCourse) {
