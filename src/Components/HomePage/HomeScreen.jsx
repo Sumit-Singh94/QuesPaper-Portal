@@ -5,10 +5,11 @@ import { Dbservice } from "../index";
 import { Card, Loader, Cardgrid } from "../index";
 import { courseContext } from "../Context";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { LampEffect } from "../AceternityUI/LampEffect";
 
 function HomeScreen() {
  const { setlistDocs } = useContext(courseContext);
- //  const [loading, setLoading] = useState(true);
  let IsMounted = useRef(true);
 
  const { data: fetchedDataDocuments, isLoading: loading } = useQuery({
@@ -40,8 +41,8 @@ function HomeScreen() {
    }
   },
 
-  if(issuccess) {
-   QueryClient.invalidateQuesries(["fetchcourses"]);
+  onSuccess: () => {
+   QueryClient.invalidateQueries(["fetchcourses"]);
   },
  });
 
@@ -57,83 +58,28 @@ function HomeScreen() {
   }
  }, [fetchedDataDocuments, setlistDocs]);
 
- //   const fetchAndUploadCourses = async () => {
- //    try {
- //     if (IsMounted.current) {
- //      console.log("started fetching and uploading process!!");
-
- //      const fetchedData = await Dbservice.getCourses();
- //      setlistDocs(fetchedData.documents)
- //      const existingcodes = fetchedData.documents.map((val) => val.coursecode);
-
- //      console.log("fetchedData data is :", fetchedData.documents);
-
- //      console.log("Starting upload process");
-
- //      const coursesToUpload = Courses.filter(
- //       (courses) => !existingcodes.includes(courses.coursecode)
- //      );
-
- //      // const finalData = fetchedData.documents;
-
- //      if (coursesToUpload.length > 0) {
- //       await Dbservice.uploadCourses(coursesToUpload);
- //       // setlistDocs(updatedData.documents);
- //      }
-
- //      // let finalData=updatedData.documents
-
- //      const finalData = await Dbservice.getCourses();
-
- //      if (IsMounted.current) {
- //       setlistDocs(finalData.documents);
-
- //       try {
- //        await Dbservice.uploadSemester();
- //       } catch (semesterError) {
- //        console.warn("Semester upload failed:", semesterError);
- //       }
-
- //       setLoading(false)
- //      }
-
- //      if (IsMounted.current) {
- //       setLoading(false);
- //      }
- //     }
- //    } catch (error) {
- //     console.log("Error::getDbcourses::error", error);
- //     if (IsMounted.current) {
- //      setLoading(false);
- //     }
- //    }
- //   };
-
- //   fetchAndUploadCourses();
-
- //   return () => {
- //    IsMounted.current = false;
- //   };
-
  return (
   <>
-   <div>
-    {loading ? (
-     <div className="flex justify-center items-center min-h-screen w-full">
-      <Loader />
-     </div>
-    ) : (
-     <div>
-      {fetchedDataDocuments ? (
-       <div>
-        <Cardgrid />
+   {loading ? (
+    <div className="flex justify-center items-center min-h-screen w-full bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out">
+     <Loader />
+    </div>
+   ) : (
+    <div className="w-full min-h-screen transition-all duration-300 ease-in-out">
+     {fetchedDataDocuments ? (
+      <LampEffect>
+       <Cardgrid />
+      </LampEffect>
+     ) : (
+      <div className="flex justify-center items-center min-h-screen bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out">
+       <div className="text-center">
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 transition-all duration-300 ease-in-out">Something went wrong!</h1>
+        <p className="text-gray-600 dark:text-gray-300 transition-all duration-300 ease-in-out">Please try refreshing the page.</p>
        </div>
-      ) : (
-       <h1>something went wrong!!</h1>
-      )}
-     </div>
-    )}
-   </div>
+      </div>
+     )}
+    </div>
+   )}
   </>
  );
 }

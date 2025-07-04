@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Form } from '../Small_Components/ContactUSForm';
+import { motion } from "framer-motion";
 
 export const Footer = () => {
 
@@ -13,65 +14,104 @@ export const Footer = () => {
 
   return (
     <StyledWrapper>
-      <footer className="footer">
-        <div className="footer_content">
-          <div className="footer_section">
+      <footer className="footer bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 transition-all duration-300 ease-in-out">
+        <motion.div 
+          className="footer_content"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <motion.div 
+            className="footer_section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
             <div className="footer_logo">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="logo_icon">
-                <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
-                <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="brand_name">Makaut Previous Year Questions</span>
+              <span className="brand_name text-gray-900 dark:text-white transition-all duration-300 ease-in-out">QuesPaper Portal</span>
             </div>
-            <p className="footer_tagline">Empowering students with accessible academic resources</p>
-            <p><strong> * Disclaimer, this is not an official Makaut Website </strong></p>
+            <p className="footer_tagline text-gray-600 dark:text-gray-300 transition-all duration-300 ease-in-out">Empowering students with accessible academic resources</p>
+            <p className="text-gray-600 dark:text-gray-400 transition-all duration-300 ease-in-out"><strong> * Disclaimer, this is not an official Makaut Website </strong></p>
 
-          </div>
-          <div className="footer_links">
+          </motion.div>
+          <motion.div 
+            className="footer_links"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <div className="link_group">
-              <h4>Quick Links</h4>
-              {/* < >Courses</a> */}
-              <Link to="/"> Courses </Link>
-              <a href="#papers">Question Papers</a>
-              <a href="#resources">Resources</a>
+              <h4 className="text-gray-900 dark:text-white transition-all duration-300 ease-in-out">Quick Links</h4>
+              <Link to="/" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Courses</Link>
+              <a href="#papers" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Question Papers</a>
+              <a href="#resources" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Resources</a>
             </div>
-
             <div className="link_group">
-              <h4>Support</h4>
-              <a href="#help">Help Center</a>
+              <h4 className="text-gray-900 dark:text-white transition-all duration-300 ease-in-out">Support</h4>
+              <a href="#help" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Help Center</a>
               <button
-                className="footer-feedback-btn"
-                style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left' }}
+                className="footer-feedback-btn text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left' }}
                 onClick={() => setShowFeedback(true)}
               >
                 Contact US
               </button>
-
               <button
-                className="footer-feedback-btn"
-                style={{ background: 'none', border: 'none', color: '#6c757d', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left' }}
+                className="footer-feedback-btn text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontSize: '0.9rem', textAlign: 'left' }}
                 onClick={() => setShowFeedback(true)}
               >
                 Feedback
               </button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="footer_bottom">
+        <motion.div 
+          className="footer_bottom bg-white/50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           <div className="footer_bottom_content">
-            <p>&copy; 2025 All Copyrights Reserved. Made with ❤️ for students</p>
-
+            <p className="text-gray-600 dark:text-gray-300 transition-all duration-300 ease-in-out">&copy; 2025 All Copyrights Reserved. Made with ❤️ for students</p>
+            <div className="social_links">
+              <a href="#" className="social_link bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-300 ease-in-out">
+                <svg viewBox="0 0 24 24" fill="none" className="text-blue-500 dark:text-blue-400">
+                  <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+              <a href="#" className="social_link bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-300 ease-in-out">
+                <svg viewBox="0 0 24 24" fill="none" className="text-blue-500 dark:text-blue-400">
+                  <path d="M23 3A10.9 10.9 0 0 0 16.5 1C13.5 1 11.5 3 10.5 5.5C9.5 8 10.5 11 13 12.5C12.5 12.5 12 12.5 11.5 12.5C9.5 12.5 7.5 11.5 6.5 10C5.5 8.5 5.5 6.5 6.5 5C7.5 3.5 9.5 2.5 11.5 2.5C13.5 2.5 15.5 3.5 16.5 5C17.5 6.5 17.5 8.5 16.5 10C15.5 11.5 13.5 12.5 11.5 12.5C10.5 12.5 9.5 12 8.5 11.5C7.5 11 6.5 10.5 5.5 10C4.5 9.5 3.5 9 2.5 8.5C1.5 8 0.5 7.5 0 7C0.5 6.5 1.5 6 2.5 5.5C3.5 5 4.5 4.5 5.5 4C6.5 3.5 7.5 3 8.5 2.5C9.5 2 10.5 1.5 11.5 1.5C12.5 1.5 13.5 2 14.5 2.5C15.5 3 16.5 3.5 17.5 4C18.5 4.5 19.5 5 20.5 5.5C21.5 6 22.5 6.5 23 7V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+              <a href="#" className="social_link bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-300 ease-in-out">
+                <svg viewBox="0 0 24 24" fill="none" className="text-blue-500 dark:text-blue-400">
+                  <path d="M16 8A6 6 0 0 1 22 14V21H18V14A2 2 0 0 0 16 12A2 2 0 0 0 14 14V21H10V14A6 6 0 0 1 16 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect x="2" y="9" width="4" height="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
-
+        </motion.div>
 
         {showFeedback && (
-          <div className="fixed inset-0 w-screen h-screen bg-transparent flex items-center justify-center z-[1000] modal-container">
-            <div className="relative bg-white rounded-xl shadow-2xl p-0 modal-content">
+          <div className="fixed inset-0 w-screen h-screen bg-black/50 dark:bg-black/70 flex items-center justify-center z-[1000] modal-container transition-all duration-300 ease-in-out">
+            <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-0 modal-content transition-all duration-300 ease-in-out">
               <button
                 onClick={() => setShowFeedback(false)}
-                className="absolute top-2 right-2 bg-transparent border-none text-2xl text-white cursor-pointer hover:text-gray-700 z-10"
+                className="absolute top-2 right-2 bg-transparent border-none text-2xl text-gray-600 dark:text-gray-300 cursor-pointer hover:text-gray-800 dark:hover:text-white z-10 transition-all duration-300 ease-in-out"
                 aria-label="Close"
               >
                 &times;
@@ -88,7 +128,6 @@ export const Footer = () => {
 
 const StyledWrapper = styled.div`
   .footer {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 4rem;
   }
@@ -130,11 +169,9 @@ const StyledWrapper = styled.div`
   .brand_name {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #212121;
   }
 
   .footer_tagline {
-    color: #6c757d;
     font-size: 0.95rem;
     line-height: 1.5;
     margin: 0;
@@ -147,7 +184,6 @@ const StyledWrapper = styled.div`
   }
 
   .link_group h4 {
-    color: #212121;
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -160,19 +196,8 @@ const StyledWrapper = styled.div`
   }
 
   .link_group a {
-    color: #6c757d;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-
-  .link_group a:hover {
-    color: #309df0;
-  }
-
-  .footer_bottom {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.5);
   }
 
   .footer_bottom_content {
@@ -185,7 +210,6 @@ const StyledWrapper = styled.div`
   }
 
   .footer_bottom p {
-    color: #6c757d;
     font-size: 0.9rem;
     margin: 0;
   }
@@ -199,30 +223,21 @@ const StyledWrapper = styled.div`
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(48, 157, 240, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
     text-decoration: none;
-  }
-
-  .social_link:hover {
-    background: #309df0;
-    transform: translateY(-2px);
   }
 
   .social_link svg {
     width: 18px;
     height: 18px;
-    color: #309df0;
     transition: color 0.3s ease;
   }
 
   .social_link:hover svg {
     color: white;
   }
- ${'' /* modal edit */}
 
   .modal-container {
     padding: 1rem;
@@ -265,7 +280,6 @@ const StyledWrapper = styled.div`
       max-width: 800px;
     }
   }
-
 
   /* Responsive Design */
   @media (max-width: 768px) {

@@ -2,40 +2,86 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { courseContext } from '../Context';
+import { motion } from 'framer-motion';
+import { Courses } from "../index";
 
 const SectionHeader = ({ title, subtitle }) => (
-    <div style={{ textAlign: 'center', margin: '40px 0 20px' }}>
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        style={{ textAlign: 'center', margin: '40px 0 20px' }}
+    >
         <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#483d8b ' }}>{title}</h2>
         {subtitle && <p style={{ color: '#555', marginTop: '8px',fontWeight:500,fontSize:'1.2rem' }}>{subtitle}</p>}
-    </div>
+    </motion.div>
 );
 
-export const Card = ({course}) => {
-    const navigate = useNavigate()
-  
-    const handleCardClick = () => {
+export const Card = ({ course }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        console.log("Card clicked - navigating to:", `/course/${course.coursecode}`);
         navigate(`/course/${course.coursecode}`);
     };
 
+    // Find the course from Courses.js to get the correct semester count
+    const courseData = Courses.find((c) => c.coursecode === course.coursecode);
+    const semesterCount = courseData?.semesters?.length || 0;
+
     return (
-        <StyledWrapper>
-            <div className="card" onClick={handleCardClick}>
-                <div className="card-inner">
-                    <div className="content">
-                        <div className="course-code">
+        <motion.div
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden cursor-pointer transition-all duration-300 ease-in-out group"
+            whileHover={{ y: -5 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            onClick={handleClick}
+        >
+            <div className="p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-sm sm:text-lg">
+                            {course.coursecode.charAt(0)}
+                        </span>
+                    </div>
+                    <div className="text-right">
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full transition-all duration-300 ease-in-out">
                             {course.coursecode}
-                        </div>
-                        <div className="divider"></div>
-                        <div className="subtitle">
-                            Explore Semesters
-                        </div>
-                        <div className="hover-indicator">
-                            <span>→</span>
-                        </div>
+                        </span>
                     </div>
                 </div>
+                
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2 transition-all duration-300 ease-in-out group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    {course.coursename}
+                </h3>
+                
+                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2 transition-all duration-300 ease-in-out">
+                    {course.description}
+                </p>
+                
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 transition-all duration-300 ease-in-out">
+                            {semesterCount} Semesters
+                        </span>
+                    </div>
+                    
+                    <motion.div
+                        className="text-blue-600 dark:text-blue-400 font-medium text-xs sm:text-sm transition-all duration-300 ease-in-out group-hover:text-blue-700 dark:group-hover:text-blue-300"
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        View Details →
+                    </motion.div>
+                </div>
             </div>
-        </StyledWrapper>
+        </motion.div>
     );
 }
 
@@ -235,13 +281,20 @@ export const Cardgrid = () => {
                     title=" Please Select Your Course"
                     subtitle="Check back later for new course updates"
                 />
-                <EmptyStateWrapper>
-                    <div className='empty-content'>
-                        <div className='empty-icon'>📚</div>
-                        <div className='empty-title'>No courses available</div>
-                        <div className='empty-subtitle'>Check back later for updates</div>
-                    </div>
-                </EmptyStateWrapper>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
+                >
+                    <EmptyStateWrapper>
+                        <div className='empty-content'>
+                            <div className='empty-icon'>📚</div>
+                            <div className='empty-title'>No courses available</div>
+                            <div className='empty-subtitle'>Check back later for updates</div>
+                        </div>
+                    </EmptyStateWrapper>
+                </motion.div>
             </BackgroundWrapper>
         );
     }
@@ -252,14 +305,26 @@ export const Cardgrid = () => {
                 title=" Please Select Your Course"
                 subtitle="Discover your learning journey through our comprehensive course catalog"
             />
-            <CardsContainer>
-                {listDocs.map((course) => (
-                    <Card
-                        key={course.$id}
-                        course={course}
-                    />
-                ))}
-            </CardsContainer>
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+            >
+                <CardsContainer>
+                    {listDocs.map((course, index) => (
+                        <motion.div
+                            key={course.$id}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                        >
+                            <Card course={course} />
+                        </motion.div>
+                    ))}
+                </CardsContainer>
+            </motion.div>
         </BackgroundWrapper>
     );
 }
