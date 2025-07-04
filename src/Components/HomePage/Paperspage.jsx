@@ -3,96 +3,124 @@ import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import Dbservice from "../../Appwrite_Config/Appwrite_Databases";
 import conf from "../../Appwrite_Env/conf";
 
-
 export function Paperspage() {
+ const { coursecode, semester } = useParams();
 
-    const { coursecode, semester } = useParams();
-
-    const normalizedCourse = coursecode.toLowerCase();
-const normalizedSemester = semester.toLowerCase();
-
-const { data: papers, isLoading, isError } = useQuery({
-  queryKey: ['papers', coursecode, semester],
-  queryFn: async () => {
-      const response = await Dbservice.getPapers(normalizedCourse, normalizedSemester);
-      console.log("response:",response)
-      // Ensure documents is always an array
-      return response && response.documents ? response.documents : [];
+ const handleDownload = async (paper) => {
+    try {
+      if (!paper || typeof paper !== 'object') {
+        throw new Error("Invalid paper data provided");
+      }
+      
+      if (!paper.file_url) {
+        throw new Error("Download URL not available");
+      }
+      
+      // Create secure download link using file_url
+      const link = document.createElement('a');
+      link.href = paper.file_url;
+      link.download = paper.original_filename || 'document.pdf';
+      link.rel = 'noopener noreferrer';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      console.log("✅ Download started successfully");
+      
+    } catch (error) {
+      console.error("Download failed:", error.message);
+      alert(`Download failed: ${error.message}`);
     }
-});
+  };
 
 
-//  Function to construct proper file URL
+ const {
+  data: papers,
+  isLoading,
+  isError,
+  error,
+ } = useQuery({
+  queryKey: ["papers", coursecode, semester],
+  queryFn: async () => {
+   const response = await Dbservice.getPapers(coursecode, semester);
 
+   console.log("Query response:", response);
+   return response && response.documents ? response.documents : [];
+  },
+ });
 
+ return (
+  <>
+   <div className="px-4 py-8 flex flex-col items-center gap-6 bg-gray-50 min-h-screen">
+    <h2 className="text-3xl font-semibold text-gray-800 tracking-wide">
+     {coursecode} <span className="text-indigo-500">/</span> {semester}
+    </h2>
 
-  return (
-    <>
-      <div className="p-4 flex flex-col items-center gap-4">
-        <h2 className="text-2xl font-bold capitalize">
-          {coursecode} - {semester}
-        </h2>
+    {isLoading ? (
+     <p className="text-gray-500 text-lg">Loading papers...</p>
+    ) : isError ? (
+     <div className="bg-red-100 text-red-700 border border-red-300 px-4 py-3 rounded shadow">
+      <p>Error loading papers:</p>
+      <p className="text-sm mt-1">{error?.message || "Unknown error"}</p>
+     </div>
+    ) : !papers || papers.length === 0 ? (
+     <div className="text-center text-gray-600 bg-white p-6 rounded-lg shadow-sm w-full max-w-xl">
+      <p className="text-lg font-medium">No papers found for this semester.</p>
+      <p className="text-sm text-gray-400 mt-2">
+       Searched for:{" "}
+       <strong>
+        {coursecode?.toUpperCase()} - sem-{semester?.replace("semester ", "")}
+       </strong>
+      </p>
+     </div>
+    ) : (
+     <div className="w-full max-w-5xl">
+      <p className="text-center mb-6 text-gray-600">
+       🎓 Found <strong>{papers.length}</strong> paper
+       {papers.length > 1 ? "s" : ""}
+      </p>
 
-        {isLoading ? (
-          <p>Loading papers...</p>
-        ) : isError ? (
-          <div className="text-red-600 p-4 border border-red-300 rounded">
-            <p>Error loading papers: {isError?.message || 'Unknown error'}</p>
+      <div className="grid md:grid-cols-2 gap-6">
+       {papers.map((paper) => (
+        <div
+         key={paper.$id}
+         className="bg-white p-5 rounded-xl shadow-md border border-gray-100 transition hover:shadow-lg"
+        >
+         <h3 className="text-xl font-semibold text-gray-800 mb-2">
+          {paper.subject_name || paper.original_filename}
+         </h3>
+
+         <ul className="text-sm text-gray-500 flex flex-wrap gap-3 mb-4">
+          <li>📅 Year: {paper.year || "N/A"}</li>
+          <li>📘 Course: {paper.coursecode}</li>
+          <li>📚 Semester: {paper.semester}</li>
+          {paper.file_size && (
+           <li>📄 Size: {(paper.file_size / 1024 / 1024).toFixed(2)} MB</li>
+          )}
+         </ul>
+
+         {paper.file_url ? (
+          <div className="flex flex-wrap gap-3">
+               <button
+                        type="button"
+                        onClick={() =>
+                          window.open(paper.file_url, "_blank", "noopener,noreferrer")
+                        }
+                        className="!bg-purple-400 text-white px-4 py-2 rounded hover:bg-purple-500 transition"
+                      >
+                        View PDF
+                      </button>
           </div>
-        ) : !papers || papers.length === 0 ? (
-          <div className="text-center p-4">
-            <p>No papers found for {coursecode} - {semester}</p>
-          </div>
-        ) : (
-          <div className="w-full max-w-4xl">
-            <p className="text-center mb-4 text-gray-600">
-              Found {papers.length} papers
-            </p>
-            <div className="grid gap-4">
-              {(Array.isArray(papers) ? papers : []).map(paper => {
-
-                return (
-                  <div key={paper.$id} className="border p-4 rounded shadow-md bg-white">
-                    <h3 className="text-lg font-semibold mb-2">
-                      {paper.subject_name || paper.original_filename}
-                    </h3>
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
-                      <span>Year: {paper.year || 'N/A'}</span>
-                      <span>Course: {paper.coursecode}</span>
-                      <span>Semester: {paper.semester}</span>
-                      {paper.file_size && (
-                        <span>Size: {(paper.file_size / 1024 / 1024).toFixed(2)} MB</span>
-                      )}
-                    </div>
-
-                    {fileUrl ? (
-                      <div className="flex gap-2">
-                        <a
-                          href={fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                        >
-                          View PDF
-                        </a>
-                        <a
-                          href={fileUrl + '&mode=download'}
-                          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
-                        >
-                          Download PDF
-                        </a>
-                      </div>
-                    ) : (
-                      <p className="text-red-600">File URL not available</p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
+         ) : (
+          <p className="text-red-500 text-sm">File URL not available</p>
+         )}
+        </div>
+       ))}
       </div>
-    </>
-  );
+     </div>
+    )}
+   </div>
+  </>
+ );
 }
-

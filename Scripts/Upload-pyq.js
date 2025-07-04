@@ -84,8 +84,8 @@ async function readFolderStructure(folderPath) {
                 const parsed = parseFilename(pdfFile);
                 
                 files.push({
-                  coursecode: course.toLowerCase(),
-                  semester: semester.toLowerCase(),
+                  coursecode: course,
+                  semester: semester,
                   filename: pdfFile,
                   filepath: filePath,
                   subject: parsed.subject,
@@ -112,7 +112,7 @@ function generateStorageId(fileData) {
     .replace(/[^a-zA-Z0-9]/g, '_')  // Replace special chars with underscore
     .toLowerCase();
   
-  const id = `${fileData.coursecode}_${fileData.semester}_${cleanFilename}`.toLowerCase();
+  const id = `${fileData.coursecode}_${fileData.semester}_${cleanFilename}`;
   
   // Ensure ID doesn't exceed Appwrite's limit (36 chars)
   if (id.length > 36) {
@@ -129,7 +129,7 @@ function generateDatabaseId(fileData) {
     .replace(/[^a-zA-Z0-9]/g, '_')  // Replace special chars with underscore
     .toLowerCase();
   
-  const id = `doc_${fileData.coursecode}_${fileData.semester}_${cleanFilename}`.toLowerCase();
+  const id = `doc_${fileData.coursecode}_${fileData.semester}_${cleanFilename}`;
   
   // Ensure ID doesn't exceed Appwrite's limit (36 chars)
   if (id.length > 36) {
@@ -223,8 +223,8 @@ async function createDatabaseEntry(fileData, storageFile) {
       config.pyqCollectionId,
       docId,
       {
-        coursecode: fileData.coursecode,
-        semester: fileData.semester,
+        coursecode: fileData.coursecode.toUpperCase(),
+        semester: fileData.semester.toLowerCase(),
         subject_name: fileData.subject,
         year: fileData.year,
         file_id: storageFile.$id,

@@ -1,17 +1,20 @@
-import { Client, Databases, ID, Query } from "appwrite";
+import { Client, Databases, ID, Query,Storage } from "appwrite";
 import conf from "../Appwrite_Env/conf";
 import Courses from "../Courses";
 import { Paperspage } from "../Components";
+import { Await } from "react-router-dom";
 
 
 export class Service {
   client = new Client();
   databases;
+  storage;
 
   constructor() {
     this.client.setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
     this.databases = new Databases(this.client);
+    this.storage=new Storage(this.client)
   }
 
 
@@ -167,22 +170,88 @@ export class Service {
   }
 
 
-
-async getPapers(coursecode, semester) {
-  // Normalize to lowercase for consistency with upload script
-  const normalizedCourse = coursecode.toLowerCase();
-  const normalizedSemester = semester.toLowerCase();
-  const response = await this.databases.listDocuments(
-    conf.appwriteDatabaseId,
-    conf.appwritePapersCollectionId,
-    [
-      Query.equal("coursecode", normalizedCourse),
-      Query.equal("semester", normalizedSemester),
-      Query.limit(10000)
-    ]
-  );
-  return response;
+ async getFileDownload(bucketId, fileId) {
+  try {
+    // Validate inputs
+    if (!bucketId || typeof bucketId !== 'string') {
+      throw new Error(`Invalid bucket ID: ${bucketId}`);
+    }
+    
+    if (!fileId || typeof fileId !== 'string') {
+      throw new Error(`Invalid file ID: ${fileId}`);
+    }
+    
+    console.log(`Downloading file: ${fileId} from bucket: ${bucketId}`);
+    
+    // The await IS working - it waits for the Promise to resolve/reject
+    const fileDownload = await this.storage.getFileDownload(bucketId, fileId);
+    
+    // Validate response
+    if (!fileDownload) {
+      throw new Error("No response received from Appwrite");
+    }
+    
+    // Handle different response types
+    if (typeof fileDownload === 'string') {
+      // Direct URL string
+      return { href: fileDownload };
+    } else if (fileDownload.href) {
+      // URL object with href property
+      return fileDownload;
+    } else {
+      // Unknown response format
+      console.warn("Unexpected response format:", fileDownload);
+      return fileDownload;
+    }
+    
+  } catch (error) {
+    // Handle different error types
+    if (error.code === 404) {
+      throw new Error("File not found. Check if the file ID is correct.");
+    } else if (error.code === 401) {
+      throw new Error("Permission denied. Check file permissions in Appwrite.");
+    } else if (error.code === 400) {
+      throw new Error("Invalid request. Check bucket ID and file ID.");
+    } else {
+      throw new Error(`Download failed: ${error.message}`);
+    }
+  }
 }
+
+
+// Updated getPapers function with proper format matching
+
+  async getPapers(coursecode, semester) {
+    try {
+      // Converted coursecode to uppercase to match database format
+      const normalizedCourseCode = coursecode?.toUpperCase();
+      
+      // Converted semester format from "semester X" to "sem-X"
+      let normalizedSemester = semester?.toLowerCase();
+      if (normalizedSemester?.startsWith('semester ')) {
+        const semesterNumber = normalizedSemester.replace('semester ', '');
+        normalizedSemester = `sem-${semesterNumber}`;
+      }
+      
+      const response = await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwritePapersCollectionId,
+        [
+          Query.equal("coursecode", normalizedCourseCode),
+          Query.equal("semester", normalizedSemester),
+          Query.limit(10000)
+        ]
+      );
+      
+      console.log("Database response:", response);
+      return response;
+      
+    } catch (error) {
+      console.log("Error::getPapers::error", error);
+      throw error;
+    }
+  }
+
 
 }
 
