@@ -12,9 +12,11 @@ import { Form } from "./Small_Components/ContactUSForm"
 import { Paperspage } from "./HomePage/Paperspage"
 import { LampEffect } from "./AceternityUI/LampEffect"
 import { HeroHighlight } from "./AceternityUI/HeroHighlight"
+import { AboutUs } from "./AboutUs/AboutUs"
 
 
 export {
+
     Loader,
     Card,
     Cardgrid,
@@ -29,5 +31,6 @@ export {
     Paperspage,
     LampEffect,
     HeroHighlight,
+    AboutUs,
 
 }

@@ -52,7 +52,7 @@ export const Footer = () => {
               <h4 className="text-gray-900 dark:text-white transition-all duration-300 ease-in-out">Quick Links</h4>
               <Link to="/" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Courses</Link>
               <a href="#papers" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Question Papers</a>
-              <a href="#resources" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">Resources</a>
+              <Link to='/AboutUs' className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out">AboutUs</Link>
             </div>
             <div className="link_group">
               <h4 className="text-gray-900 dark:text-white transition-all duration-300 ease-in-out">Support</h4>
@@ -84,25 +84,7 @@ export const Footer = () => {
         >
           <div className="footer_bottom_content">
             <p className="text-gray-600 dark:text-gray-300 transition-all duration-300 ease-in-out">&copy; 2025 All Copyrights Reserved. Made with ❤️ for students</p>
-            <div className="social_links">
-              <a href="#" className="social_link bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-300 ease-in-out">
-                <svg viewBox="0 0 24 24" fill="none" className="text-blue-500 dark:text-blue-400">
-                  <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-              <a href="#" className="social_link bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-300 ease-in-out">
-                <svg viewBox="0 0 24 24" fill="none" className="text-blue-500 dark:text-blue-400">
-                  <path d="M23 3A10.9 10.9 0 0 0 16.5 1C13.5 1 11.5 3 10.5 5.5C9.5 8 10.5 11 13 12.5C12.5 12.5 12 12.5 11.5 12.5C9.5 12.5 7.5 11.5 6.5 10C5.5 8.5 5.5 6.5 6.5 5C7.5 3.5 9.5 2.5 11.5 2.5C13.5 2.5 15.5 3.5 16.5 5C17.5 6.5 17.5 8.5 16.5 10C15.5 11.5 13.5 12.5 11.5 12.5C10.5 12.5 9.5 12 8.5 11.5C7.5 11 6.5 10.5 5.5 10C4.5 9.5 3.5 9 2.5 8.5C1.5 8 0.5 7.5 0 7C0.5 6.5 1.5 6 2.5 5.5C3.5 5 4.5 4.5 5.5 4C6.5 3.5 7.5 3 8.5 2.5C9.5 2 10.5 1.5 11.5 1.5C12.5 1.5 13.5 2 14.5 2.5C15.5 3 16.5 3.5 17.5 4C18.5 4.5 19.5 5 20.5 5.5C21.5 6 22.5 6.5 23 7V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-              <a href="#" className="social_link bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-300 ease-in-out">
-                <svg viewBox="0 0 24 24" fill="none" className="text-blue-500 dark:text-blue-400">
-                  <path d="M16 8A6 6 0 0 1 22 14V21H18V14A2 2 0 0 0 16 12A2 2 0 0 0 14 14V21H10V14A6 6 0 0 1 16 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <rect x="2" y="9" width="4" height="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
+           
           </div>
         </motion.div>
 

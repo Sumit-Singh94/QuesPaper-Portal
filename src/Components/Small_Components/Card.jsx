@@ -25,7 +25,6 @@ export const Card = ({ course }) => {
         navigate(`/course/${course.coursecode}`);
     };
 
-    // Find the course from Courses.js to get the correct semester count
     const courseData = Courses.find((c) => c.coursecode === course.coursecode);
     const semesterCount = courseData?.semesters?.length || 0;
 
@@ -82,7 +81,7 @@ export const Card = ({ course }) => {
             </div>
         </motion.div>
     );
-}
+};
 
 const StyledWrapper = styled.div`
     .card {
@@ -198,75 +197,82 @@ const StyledWrapper = styled.div`
 
     .hover-indicator span {
         font-size: 18px;
-        font-weight: bold;
-        transition: transform 0.3s ease;
+        color: white;
+        transition: all 0.3s ease;
     }
 
     .card:hover .hover-indicator {
-        bottom: 16px;
+        bottom: 20px;
+        transform: translateX(-50%) scale(1.1);
         background: rgba(255, 255, 255, 0.3);
-        border-color: rgba(255, 255, 255, 0.4);
     }
 
     .card:hover .hover-indicator span {
-        transform: translateX(2px);
+        transform: rotate(45deg);
+    }
+`;
+
+const BackgroundWrapper = styled.div`
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+    }
+`;
+
+const CardsContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+`;
+
+const EmptyStateWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    .empty-content {
+        text-align: center;
+        color: white;
     }
 
-    /* Alternative gradient themes */
-    .card:nth-child(2n) {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    .card:nth-child(3n) {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
-    
-    .card:nth-child(4n) {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
-    
-    .card:nth-child(5n) {
-        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    .empty-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.8;
     }
 
-    /* Responsive design */
-    @media (max-width: 768px) {
-        .card {
-            width: 280px;
-            height: 160px;
-        }
-        
-        .card-inner {
-            padding: 20px;
-        }
-        
-        .course-code {
-            font-size: 24px;
-        }
-        
-        .subtitle {
-            font-size: 13px;
-        }
+    .empty-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
     }
 
-    @media (max-width: 480px) {
-        .card {
-            width: 260px;
-            height: 140px;
-        }
-        
-        .course-code {
-            font-size: 22px;
-        }
-        
-        .hover-indicator {
-            width: 35px;
-            height: 35px;
-        }
-        
-        .hover-indicator span {
-            font-size: 16px;
-        }
+    .empty-subtitle {
+        font-size: 16px;
+        opacity: 0.8;
     }
 `;
 
@@ -327,102 +333,3 @@ export const Cardgrid = () => {
         </BackgroundWrapper>
     );
 }
-
-
-const BackgroundWrapper = styled.div`
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    position: relative;
-    
-    &::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 1;
-    }
-    
-    > * {
-        position: relative;
-        z-index: 2;
-    }
-`;
-
-const CardsContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 32px;
-    padding: 40px 20px 80px;
-    max-width: 1400px;
-    margin: 0 auto;
-
-    @media (max-width: 768px) {
-        gap: 24px;
-        padding: 30px 16px 60px;
-    }
-`;
-
-const EmptyStateWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
-    padding: 40px 20px;
-
-    .empty-content {
-        text-align: center;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 60px 40px;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        max-width: 400px;
-    }
-
-    .empty-icon {
-        font-size: 4rem;
-        margin-bottom: 20px;
-        opacity: 0.8;
-    }
-
-    .empty-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #4a5568;
-        margin-bottom: 12px;
-    }
-
-    .empty-subtitle {
-        font-size: 1rem;
-        color: #718096;
-        opacity: 0.8;
-    }
-
-    @media (max-width: 480px) {
-        .empty-content {
-            padding: 40px 30px;
-            margin: 0 20px;
-        }
-        
-        .empty-icon {
-            font-size: 3rem;
-        }
-        
-        .empty-title {
-            font-size: 1.3rem;
-        }
-        
-        .empty-subtitle {
-            font-size: 0.9rem;
-        }
-    }
-`;

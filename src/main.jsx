@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { HomeScreen } from "./Components/index.js";
+import { AboutUs, HomeScreen } from "./Components/index.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CourseContextProvider from "./Components/Context/ContextProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "",
+        path: "", // this is an index route or default route under app
         element: <HomeScreen />,
       },
       {
@@ -28,7 +28,12 @@ const router = createBrowserRouter([
       {
         path: "/course/:coursecode/semester/:semester",
         element: <Paperspage />
+      },
+      {
+        path: "/AboutUs",
+        element: <AboutUs />
       }
+
     ]
   }
 ]);
