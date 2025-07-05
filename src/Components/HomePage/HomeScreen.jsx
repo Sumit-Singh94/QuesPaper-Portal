@@ -7,6 +7,7 @@ import { courseContext } from "../Context";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { LampEffect } from "../AceternityUI/LampEffect";
+import { Helmet } from "react-helmet";
 
 function HomeScreen() {
  const { setlistDocs } = useContext(courseContext);
@@ -62,6 +63,13 @@ function HomeScreen() {
 
  return (
   <>
+  <Helmet>
+  <title>MAKAUT PYQ Portal | Home</title>
+  <meta name="description" content="Browse and download MAKAUT previous year question papers by course and semester. Free PDF downloads." />
+  <link rel="canonical" href="https://www.makaut.co.in/" />
+  <meta property="og:url" content="https://www.makaut.co.in/" />
+</Helmet>
+
    {loading ? (
     <div className="flex justify-center items-center min-h-screen w-full bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out">
      <Loader />

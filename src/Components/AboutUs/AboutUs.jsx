@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { HeroHighlight } from '../AceternityUI/HeroHighlight';
 import { useNavigate } from 'react-router-dom';
 import { HomeScreen } from "../index";
+import { Helmet } from "react-helmet";
+
 
 export const AboutUs = () => {
   const navigate =useNavigate();
@@ -47,6 +49,15 @@ export const AboutUs = () => {
   ];
 
   return (
+    <>
+    
+<Helmet>
+  <title>About Us | MAKAUT PYQ Portal</title>
+  <meta name="description" content="We help MAKAUT students access previous year question papers by course and semester. Learn more about our mission." />
+  <link rel="canonical" href="https://www.makaut.co.in/about" />
+  <meta property="og:url" content="https://www.makaut.co.in/about" />
+</Helmet>
+
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 transition-all duration-300 ease-in-out">
       {/* Hero Section */}
       <div className="pt-8 pb-12 sm:pt-12 sm:pb-16">
@@ -220,5 +231,6 @@ export const AboutUs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 }; 

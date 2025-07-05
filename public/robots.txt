@@ -1,0 +1,31 @@
+# robots.txt for MAKAUT PYQ Portal
+# https://www.makaut.co.in/robots.txt
+
+User-agent: *
+Allow: /
+
+# Block access to admin/private areas (if any)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Block access to system files
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.log$
+Disallow: /*.config$
+
+# Allow access to sitemap specifically
+Allow: /sitemap.xml
+
+# Block search result pages with parameters to avoid duplicate content
+Disallow: /*?*
+Allow: /*?utm_*
+
+# Common crawl delay (optional - remove if not needed)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://www.makaut.co.in/sitemap.xml

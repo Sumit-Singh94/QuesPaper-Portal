@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.makaut.co.in/</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Main Course Pages -->
+  <url>
+    <loc>https://www.makaut.co.in/courses</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Popular Undergraduate Courses -->
+  <url>
+    <loc>https://www.makaut.co.in/courses/btech</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/bba</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/bca</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/bsc</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/ba</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/bpharm</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/barch</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Popular Postgraduate Courses -->
+  <url>
+    <loc>https://www.makaut.co.in/courses/mba</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/mca</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/msc</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/mtech</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/courses/mpharm</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Additional Static Pages -->
+  <url>
+    <loc>https://www.makaut.co.in/about</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.makaut.co.in/search</loc>
+    <lastmod>2025-07-05T16:02:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { SemCard } from "../index";
 import { Courses } from '../index';
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 export function Semesterpage() {
   const { coursecode } = useParams();
@@ -32,6 +33,7 @@ export function Semesterpage() {
   // If course not found, show error
   if (!currentCourse) {
     return (
+    
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <motion.div
@@ -59,9 +61,20 @@ export function Semesterpage() {
         </div>
       </div>
     );
+    
   }
 
   return (
+    <>
+        <Helmet>
+      <title>{`${currentCourse.coursename} | Select Semester | MAKAUT PYQ Portal`}</title>
+      <meta name="description" content={`Choose a semester to view and download previous year question papers for ${currentCourse.coursename}.`} />
+      <link rel="canonical" href={`https://www.makaut.co.in/course/${coursecode}`} />
+      <meta property="og:title" content={`${currentCourse.coursename} | MAKAUT PYQ Portal`} />
+      <meta property="og:description" content={`Access previous year question papers for ${currentCourse.coursename} organized semester-wise.`} />
+      <meta property="og:url" content={`https://www.makaut.co.in/course/${coursecode}`} />
+    </Helmet>
+  
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <motion.div
@@ -127,5 +140,8 @@ export function Semesterpage() {
         )}
       </div>
     </div>
+  </>
+    
   );
+  
 }

@@ -3,9 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import Dbservice from "../../Appwrite_Config/Appwrite_Databases";
 import { motion } from "framer-motion";
 import { Courses } from '../index';
+import { Helmet } from "react-helmet";
 
 export function Paperspage() {
   const { coursecode, semester } = useParams();
+  const fullUrl = `https://www.makaut.co.in/course/${coursecode}/semester/${semester}`;
+
 
   const {
     data: papers,
@@ -38,6 +41,16 @@ export function Paperspage() {
   }
 
   return (
+    <>
+      <Helmet>
+  <title>{`${coursecode} ${semester} Question Papers | MAKAUT PYQ Portal`}</title>
+  <meta name="description" content={`Download previous year question papers for ${coursecode}, ${semester} at MAKAUT PYQ Portal.`} />
+  <meta property="og:title" content={`${coursecode} ${semester} - Question Papers`} />
+  <meta property="og:description" content={`Explore ${papers?.length || 0} past papers for ${coursecode} ${semester}. Instant PDF download.`} />
+  <meta property="og:url" content={fullUrl} />
+  <link rel="canonical" href={fullUrl} />
+</Helmet>
+  
     <div className="px-4 py-8 flex flex-col items-center gap-6 bg-white dark:bg-gray-900 min-h-screen transition-all duration-300 ease-in-out">
       <motion.h2 
         className="text-3xl font-semibold text-gray-800 dark:text-white tracking-wide transition-all duration-300 ease-in-out"
@@ -150,5 +163,6 @@ export function Paperspage() {
         </motion.div>
       )}
     </div>
+      </>
   );
 }
