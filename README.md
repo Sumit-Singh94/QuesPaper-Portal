@@ -1,12 +1,48 @@
-# React + Vite
+ PYQ Paper Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive React-based web application for accessing Previous Year Questions (PYQ) and academic resources. Built with modern frontend technologies to provide students with an intuitive interface for browsing courses and accessing examination materials.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Course Management: Interactive course cards with detailed information
+- Semester Organization: Materials organized by academic semesters
+- Responsive Design: Optimized for desktop, tablet, and mobile devices
+- Theme Support: Dark/Light mode toggle for enhanced user experience
+- Modern UI: Smooth animations and micro-interactions using Framer Motion
+- Context State Management: Efficient data flow using React Context API
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Frontend: React 18+ with functional components and hooks
+- Backend : Enabled backend services from Appwrite, an open source backend service provider
+- Styling: Tailwind CSS for utility-first styling, Styled Components for advanced designs
+- Animations: Framer Motion for smooth transitions and interactions
+- Routing: React Router DOM for single-page application navigation
+- State Management: React Context API for global state management
+
+## Key Technical Implementations
+
+- Component Architecture: Reusable card components with props-based customization
+- Performance Optimization: Lazy loading and viewport-based animations
+- Accessibility: Semantic HTML and keyboard navigation support
+- Code Organization: Modular component structure with separation of concerns
+
+## Installation & Setup
+
+npm
+# Clone the repository
+git clone <repository-url>
+cd pyq-paper-portal
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+
+
+
+
+
+  
