@@ -136,7 +136,7 @@ export function Paperspage() {
                       onClick={() =>
                         window.open(paper.file_url, "_blank", "noopener,noreferrer")
                       }
-                      className="bg-purple-400 dark:bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-500 dark:hover:bg-purple-600 transition-all duration-300 ease-in-out"
+                      className="!bg-purple-200   dark:bg-purple-500 text-black px-4 py-2 rounded hover:bg-purple-500 dark:hover:bg-purple-600 transition-all duration-300 ease-in-out"
                     >
                       View PDF
                     </button>

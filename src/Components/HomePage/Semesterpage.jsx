@@ -1,18 +1,33 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SemCard } from "../index";
 import { Courses } from '../index';
 import { motion } from "framer-motion";
 
 export function Semesterpage() {
   const { coursecode } = useParams();
+  const [currentCourse, setCurrentCourse] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   
-  const currentCourse = Courses.find((course) => course.coursecode === coursecode);
-  
-  // Minimal fix for navigation issue - ensure component re-renders when coursecode changes
+  // Update current course when coursecode changes
   useEffect(() => {
-    // This ensures the component updates when navigating between courses
+    setIsLoading(true);
+    const course = Courses.find((course) => course.coursecode === coursecode);
+    setCurrentCourse(course);
+    setIsLoading(false);
   }, [coursecode]);
+  
+  // Show loading state while determining course
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">Loading course...</p>
+        </div>
+      </div>
+    );
+  }
   
   // If course not found, show error
   if (!currentCourse) {
@@ -55,6 +70,7 @@ export function Semesterpage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          key={coursecode} // Add key to force re-render when course changes
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 transition-all duration-300 ease-in-out">
             {currentCourse.coursename}
@@ -71,10 +87,11 @@ export function Semesterpage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
+            key={`${coursecode}-semesters`} // Add key to force re-render
           >
             {currentCourse.semesters.map((semester, index) => (
               <motion.div
-                key={semester}
+                key={`${coursecode}-${semester}`} // Use unique key combining course and semester
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -112,9 +129,3 @@ export function Semesterpage() {
     </div>
   );
 }
-
-
-
-
-
-

@@ -6,7 +6,12 @@ export const SemCard = ({title, subtitle}) => {
   const {coursecode} = useParams();
 
   const handleOnClick = () => {
-    navigate(`/course/${coursecode}/semester/${title}`);
+    // Ensure we have coursecode before navigating
+    if (coursecode) {
+      navigate(`/course/${coursecode}/semester/${title}`);
+    } else {
+      console.error("No coursecode available for navigation");
+    }
   };
 
   return (

@@ -276,60 +276,60 @@ const EmptyStateWrapper = styled.div`
     }
 `;
 
-export const Cardgrid = () => {
-    const {listDocs} = useContext(courseContext);
+// export const Cardgriddual = () => {
+//     const {listDocs} = useContext(courseContext);
 
-    if (!listDocs || listDocs.length === 0) {
-        return (
-            <BackgroundWrapper>
-                <SectionHeader
-                    title=" Please Select Your Course"
-                    subtitle="Check back later for new course updates"
-                />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                >
-                    <EmptyStateWrapper>
-                        <div className='empty-content'>
-                            <div className='empty-icon'>📚</div>
-                            <div className='empty-title'>No courses available</div>
-                            <div className='empty-subtitle'>Check back later for updates</div>
-                        </div>
-                    </EmptyStateWrapper>
-                </motion.div>
-            </BackgroundWrapper>
-        );
-    }
+//     if (!listDocs || listDocs.length === 0) {
+//         return (
+//             <BackgroundWrapper>
+//                 <SectionHeader
+//                     title=" Please Select Your Course"
+//                     subtitle="Check back later for new course updates"
+//                 />
+//                 <motion.div
+//                     initial={{ opacity: 0, y: 30 }}
+//                     whileInView={{ opacity: 1, y: 0 }}
+//                     transition={{ duration: 0.6 }}
+//                     viewport={{ once: true }}
+//                 >
+//                     <EmptyStateWrapper>
+//                         <div className='empty-content'>
+//                             <div className='empty-icon'>📚</div>
+//                             <div className='empty-title'>No courses available</div>
+//                             <div className='empty-subtitle'>Check back later for updates</div>
+//                         </div>
+//                     </EmptyStateWrapper>
+//                 </motion.div>
+//             </BackgroundWrapper>
+//         );
+//     }
 
-    return (
-        <BackgroundWrapper>
-            <SectionHeader 
-                title=" Please Select Your Course"
-                subtitle="Discover your learning journey through our comprehensive course catalog"
-            />
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-            >
-                <CardsContainer>
-                    {listDocs.map((course, index) => (
-                        <motion.div
-                            key={course.$id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                        >
-                            <Card course={course} />
-                        </motion.div>
-                    ))}
-                </CardsContainer>
-            </motion.div>
-        </BackgroundWrapper>
-    );
-}
+//     return (
+//         <BackgroundWrapper>
+//             <SectionHeader 
+//                 title=" Please Select Your Course"
+//                 subtitle="Discover your learning journey through our comprehensive course catalog"
+//             />
+//             <motion.div
+//                 initial={{ opacity: 0, y: 30 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 transition={{ duration: 0.6 }}
+//                 viewport={{ once: true }}
+//             >
+//                 <CardsContainer>
+//                     {listDocs.map((course, index) => (
+//                         <motion.div
+//                             key={course.$id}
+//                             initial={{ opacity: 0, y: 30 }}
+//                             whileInView={{ opacity: 1, y: 0 }}
+//                             transition={{ duration: 0.6, delay: index * 0.1 }}
+//                             viewport={{ once: true }}
+//                         >
+//                             <Card course={course} />
+//                         </motion.div>
+//                     ))}
+//                 </CardsContainer>
+//             </motion.div>
+//         </BackgroundWrapper>
+//     );
+// }
