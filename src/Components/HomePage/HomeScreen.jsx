@@ -66,6 +66,7 @@ function HomeScreen() {
   <Helmet>
   <title>MAKAUT PYQ Portal | Home</title>
   <meta name="description" content="Browse and download MAKAUT previous year question papers by course and semester. Free PDF downloads." />
+  <meta name="keywords" content="MAKAUT PYQ, BCA question papers, BTech past papers, semester wise pdf, MAKAUT university exam papers, previous year papers MAKAUT" />
   <link rel="canonical" href="https://www.makaut.co.in/" />
   <meta property="og:url" content="https://www.makaut.co.in/" />
 </Helmet>

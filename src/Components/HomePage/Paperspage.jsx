@@ -46,6 +46,7 @@ export function Paperspage() {
   <title>{`${coursecode} ${semester} Question Papers | MAKAUT PYQ Portal`}</title>
   <meta name="description" content={`Download previous year question papers for ${coursecode}, ${semester} at MAKAUT PYQ Portal.`} />
   <meta property="og:title" content={`${coursecode} ${semester} - Question Papers`} />
+  <meta name="keywords" content="MAKAUT PYQ, BCA question papers, BTech past papers, semester wise pdf, MAKAUT university exam papers, previous year papers MAKAUT" />
   <meta property="og:description" content={`Explore ${papers?.length || 0} past papers for ${coursecode} ${semester}. Instant PDF download.`} />
   <meta property="og:url" content={fullUrl} />
   <link rel="canonical" href={fullUrl} />

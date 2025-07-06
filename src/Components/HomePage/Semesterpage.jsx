@@ -70,6 +70,7 @@ export function Semesterpage() {
       <title>{`${currentCourse.coursename} | Select Semester | MAKAUT PYQ Portal`}</title>
       <meta name="description" content={`Choose a semester to view and download previous year question papers for ${currentCourse.coursename}.`} />
       <link rel="canonical" href={`https://www.makaut.co.in/course/${coursecode}`} />
+      <meta name="keywords" content="MAKAUT PYQ, BCA question papers, BTech past papers, semester wise pdf, MAKAUT university exam papers, previous year papers MAKAUT" />
       <meta property="og:title" content={`${currentCourse.coursename} | MAKAUT PYQ Portal`} />
       <meta property="og:description" content={`Access previous year question papers for ${currentCourse.coursename} organized semester-wise.`} />
       <meta property="og:url" content={`https://www.makaut.co.in/course/${coursecode}`} />
