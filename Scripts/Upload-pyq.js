@@ -14,7 +14,7 @@ const config = {
   storageBucketId: conf.appwriteBucketId,
   
   // Local Configuration
-  pyqFolderPath: "D:\FrontendDevelopment\QuesPaper-Portal\src\PYQ"
+  pyqFolderPath: "D:/FrontendDevelopment/QuesPaper-Portal/src/PYQ"
 };
 
 // Initialize Appwrite
