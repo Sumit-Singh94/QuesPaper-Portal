@@ -146,11 +146,11 @@ export function Paperspage() {
                   </h3>
 
                   <ul className="text-sm text-gray-500 dark:text-gray-400 flex flex-wrap gap-3 mb-4 transition-all duration-300 ease-in-out">
-                    <li>📅 Year: {paper.year || "N/A"}</li>
-                    <li>📘 Course: {paper.coursecode}</li>
-                    <li>📚 Semester: {paper.semester}</li>
+                    <li> Year: {paper.year || "N/A"}</li>
+                    <li> Course: {paper.coursecode}</li>
+                    <li> Semester: {paper.semester}</li>
                     {paper.file_size && (
-                      <li>📄 Size: {(paper.file_size / 1024 / 1024).toFixed(2)} MB</li>
+                      <li> Size: {(paper.file_size / 1024 / 1024).toFixed(2)} MB</li>
                     )}
                   </ul>
 
