@@ -1,6 +1,6 @@
  PYQ Paper Portal
 
-A comprehensive React-based web application for accessing Previous Year Questions (PYQ) and academic resources. Built with modern frontend technologies to provide students with an intuitive interface for browsing courses and accessing examination materials.
+A comprehensive React-based web application for accessing Previous Year Questions (PYQ) and academic resources. Built with modern frontend technologies to provide students with an intuitive interface for browsing courses and accessing examination materials.I have built a portal for college students to freely access and download 600+ previous-year question papers. Within just a few weeks of launch, the platform reached 200+ active users and received highly positive feedback.
 
 ## Features
 
